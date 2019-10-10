@@ -1,13 +1,25 @@
-#ifndef DEF_VECTOR2
-#define DEF_VECTOR2
+#ifndef DEF_VECTOR2_HPP
+#define DEF_VECTOR2_HPP
 
-struct Vector2
+template<typename T>
+class Vector2
 {
 public:
-	float x{};
-	float y{};
+	T x{};
+	T y{};
 	Vector2() = default;
-	Vector2(float x, float y) :x(x), y(y) {};
+	Vector2(T x, T y) :x(x), y(y) {};
+	template<typename U>
+	Vector2<T>& operator+=(const Vector2<U>& vector)
+	{
+		*this = *this + vector;
+		return *this;
+	}
 };
+template<typename T>
+	Vector2<T> operator+(const Vector2<T>& vector1, const Vector2<T>& vector2)
+	{
+		return Vector2{ vector1.x + vector2.x, vector1.y + vector2.y };
+	}
 
 #endif
