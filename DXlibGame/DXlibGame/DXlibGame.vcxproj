@@ -157,13 +157,14 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="DrawPixel.cpp" />
-    <ClCompile Include="Player.cpp" />
+    <ClCompile Include="src\Main.cpp" />
+    <ClCompile Include="src\Player.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Player.hpp" />
-    <ClInclude Include="Timer.hpp" />
-    <ClInclude Include="Vector2.hpp" />
+    <ClInclude Include="src\Map.hpp" />
+    <ClInclude Include="src\Player.hpp" />
+    <ClInclude Include="src\TImer.hpp" />
+    <ClInclude Include="src\Vector2.hpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
