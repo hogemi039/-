@@ -38,7 +38,7 @@ void DrawMap()
 	}
 }
 
-bool HitWithGround(Vector2<float>& pos)
+bool HitWithGround(Vector2& pos)
 {
 	int x = static_cast<int>(pos.x / GROUND_IMAGE_SIZE);
 	int y = static_cast<int>(pos.y / GROUND_IMAGE_SIZE);

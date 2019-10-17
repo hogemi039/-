@@ -1,4 +1,4 @@
-/**
+/*
 * @file   Player.cpp
 * @brief  Vector2ÇÃÉNÉâÉX
 * @auther à…ì° çLé˜
@@ -7,25 +7,15 @@
 #ifndef VECTOR2_HPP
 #define VECTOR2_HPP
 
-template<typename T>
 class Vector2
 {
 public:
-	T x{};
-	T y{};
+	float x{};
+	float y{};
 	Vector2() = default;
-	Vector2(T x, T y) :x(x), y(y) {};
-	template<typename U>
-	Vector2<T>& operator+=(const Vector2<U>& vector)
-	{
-		*this = *this + vector;
-		return *this;
-	}
+	Vector2(float x, float y) :x(x), y(y) {};
+	Vector2& operator+=(const Vector2& vector);
 };
-template<typename T>
-Vector2<T> operator+(const Vector2<T>& vector1, const Vector2<T>& vector2)
-{
-	return Vector2{ vector1.x + vector2.x, vector1.y + vector2.y };
-}
+Vector2 operator+(const Vector2& vector1, const Vector2& vector2);
 
 #endif

@@ -1,4 +1,4 @@
-/**
+/*
 * @file   Player.hpp
 * @brief  player‚Ìƒƒ“ƒo‚ğéŒ¾
 * @auther ˆÉ“¡ L÷
@@ -22,8 +22,8 @@ private:
 	float fall_Speed{};
 public:
 	bool jump_flag;
-	Vector2<float> position{};
-	Vector2<float> move_Vector{};
+	Vector2 position{};
+	Vector2 move_Vector{};
 	Player()
 	{
 		speed = 5.0f;
