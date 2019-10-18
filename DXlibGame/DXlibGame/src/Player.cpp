@@ -29,6 +29,18 @@ void Player::Move(float dir)
 }
 
 /*
+* @brief ジャンプ処理
+*/
+void Player::Jump()
+{
+	if (!jump_flag && CheckHitKey(KEY_INPUT_SPACE))
+	{
+  		jump_flag = true;
+		fall_Speed = -7.5f;
+	}
+}
+
+/*
 * @brief 落下処理
 */
 void Player::Fall()
@@ -45,6 +57,7 @@ void Player::Fall()
 	}
 	else
 	{
+		DrawFormatString(0, 50, GetColor(255, 255, 255), "ばーか");
 		fall_Speed = 0;
 	}
 }
@@ -54,6 +67,8 @@ void Player::Fall()
 */
 void Player::Draw()
 {
+	DxLib::DrawFormatString(0, 100, GetColor(255, 255, 255), "%d", jump_flag);
+	DxLib::DrawFormatString(0, 0, GetColor(255, 255, 255), "落下速度：%.2f", fall_Speed);
 	//画像を表示
 	DxLib::DrawGraph(static_cast<int>(position.x), static_cast<int>(position.y), handle, true);
 }
@@ -65,6 +80,7 @@ void Player::Update()
 {
 	//移動量をリセット
 	move_Vector = Vector2{ 0.0f, 0.0f };
+	Jump();
 	Fall();
 	if (CheckHitKey(KEY_INPUT_LEFT))
 	{

@@ -5,7 +5,6 @@
 const int MAP_WIDTH = 10;
 const int MAP_HEIGHT = 10;
 const int GROUND_IMAGE_SIZE = 32;
-
 const int map[MAP_HEIGHT][MAP_WIDTH] =
 {
 	{0,0,0,0,0,0,0,0,0,0},
@@ -14,13 +13,12 @@ const int map[MAP_HEIGHT][MAP_WIDTH] =
 	{0,0,0,0,0,0,0,0,0,0},
 	{0,0,0,0,0,0,0,0,0,0},
 
-	{0,0,0,0,0,0,0,0,0,0},
+	{0,0,0,0,1,1,0,0,0,0},
 	{0,0,0,0,0,0,0,0,0,0},
 	{1,1,1,1,1,1,1,1,1,1},
 	{0,0,0,0,0,0,0,0,0,0},
 	{0,0,0,0,0,0,0,0,0,0},
 };
-
 int maphandle[70];
 
 void DrawMap()
@@ -40,20 +38,28 @@ void DrawMap()
 
 bool HitWithGround(Vector2& pos)
 {
-	int x = static_cast<int>(pos.x / GROUND_IMAGE_SIZE);
-	int y = static_cast<int>(pos.y / GROUND_IMAGE_SIZE);
+	int x = static_cast<int>((pos.x) / GROUND_IMAGE_SIZE);
+	int y = static_cast<int>((pos.y) / GROUND_IMAGE_SIZE);
 	if (x < MAP_WIDTH && y < MAP_HEIGHT)
 	{
+		//上に地面がある
+		if (map[y][x] != 0)
+		{
+			pos.y = static_cast<float>(y * GROUND_IMAGE_SIZE);
+			return false;
+		}
 		y++;
+		//下に地面がない
 		if (map[y][x] == 0)
 		{
 			/*pos.jump_flag = true;*/
 			return true;
 		}
-		if (map[y][x] != 0)
+		//下に地面がある
+		if (map[y][x] != 0 || map[y][x + 1] != 0)
 		{
 			/*pos.jump_flag = false;*/
-			pos.y = static_cast<float>((y - 1) * 32);
+			pos.y = static_cast<float>((y - 1) * GROUND_IMAGE_SIZE);
 			return false;
 		}
 	}
@@ -67,21 +73,20 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine
 	//フルスクリーンモードからウィンドウモードに変更
 	DxLib::ChangeWindowMode(true);
 	DxLib::SetGraphMode(1280, 720, 32);
-
 	if (DxLib_Init() == -1) { return -1; }
 	DxLib::LoadDivGraph("resource/sheet.png", 70, 10, 7, 32, 32, maphandle);
 	//プレイヤーの初期化
 	player_.Init();
-	DxLib::SetDrawScreen(DX_SCREEN_BACK);
 	Time::Init();
+	DxLib::SetDrawScreen(DX_SCREEN_BACK);
 	//ESCキーを押すか, 画面を閉じたらループを抜ける
 	while (ProcessMessage() == FALSE && CheckHitKey(KEY_INPUT_ESCAPE) == FALSE)
 	{
 		DxLib::ClearDrawScreen();
 		Time::Update();
 		player_.Update();
-		DrawMap();
 		player_.jump_flag = HitWithGround(player_.position);
+		DrawMap();
 		DxLib::ScreenFlip();
 	}
 	DxLib_End();

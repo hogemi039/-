@@ -9,7 +9,6 @@
 
 #include "Vector2.hpp"
 
-
 class Player
 {
 private:
@@ -26,13 +25,15 @@ public:
 	Vector2 move_Vector{};
 	Player()
 	{
-		speed = 5.0f;
+		speed = 3.0f;
 		fall_Speed = 0.0f;
 	}
+	//~Player();
 	void Init();
 	void Draw();
 	void Update();
-	void Move(float);
 	void Fall();
+	void Jump();
+	void Move(float);
 };
 #endif
