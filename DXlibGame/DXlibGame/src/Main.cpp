@@ -75,8 +75,8 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine
 	DxLib::SetGraphMode(1280, 720, 32);
 	if (DxLib_Init() == -1) { return -1; }
 	DxLib::LoadDivGraph("resource/sheet.png", 70, 10, 7, 32, 32, maphandle);
-	//プレイヤーの初期化
 	player_.Init();
+
 	Time::Init();
 	DxLib::SetDrawScreen(DX_SCREEN_BACK);
 	//ESCキーを押すか, 画面を閉じたらループを抜ける
@@ -85,7 +85,7 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine
 		DxLib::ClearDrawScreen();
 		Time::Update();
 		player_.Update();
-		player_.jump_flag = HitWithGround(player_.position);
+		player_.jump_Flag = HitWithGround(player_.position);
 		DrawMap();
 		DxLib::ScreenFlip();
 	}

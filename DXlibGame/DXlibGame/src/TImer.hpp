@@ -1,4 +1,4 @@
-/*
+/**
 * @file   Timer.cpp
 * @brief  1フレームに掛かる時間を計算するクラス
 * @auther 伊藤 広樹

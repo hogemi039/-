@@ -15,6 +15,8 @@ public:
 	Vector2() = default;
 	Vector2(float x, float y) :x(x), y(y) {};
 	Vector2& operator+=(const Vector2& vector);
+	float Length();
+	void Normalize();
 };
 Vector2 operator+(const Vector2& vector1, const Vector2& vector2);
 
