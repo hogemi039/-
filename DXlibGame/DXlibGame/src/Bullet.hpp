@@ -9,23 +9,39 @@
 
 #include "DxLib.h"
 #include "Vector2.hpp"
+#include "Object.hpp"
 
-class Bullet
+class Bullet :public Object
 {
 private:
-	const float DELAY = 15.0f;
-	const float SPEED = 10.0f;
+	const float DELAY{ 15.0f };
+	const float SPEED{ 10.0f };
+	Vector2 moveVector_{};
 	bool active{};
-	int handle{};
-	Vector2 move_Vector{};
 public:
-	Vector2 position{};
-	Bullet();
-	void Init();
-	void CreateBullet(Vector2&, float);
 	void Move();
-	void Draw();
+	void Render();
 	void Update();
+	Bullet(Vector2, Vector2);
+	~Bullet() = default;
 };
+
+//class Bullet
+//{
+//private:
+//	const float DELAY{ 15.0f };
+//	const float SPEED{ 10.0f };
+//	Vector2 moveVector{};
+//	int handle{};
+//	bool active{};
+//	//void Destroy();
+//public:
+//	Vector2 position{};
+//	Bullet(float, float);
+//	void CreateBullet(Vector2&, float);
+//	void Move();
+//	void Render();
+//	void Update();
+//};
 
 #endif

@@ -11,7 +11,7 @@
 
 class Time
 {
-	inline static int prev;
+	inline static int prev{};
 public:
 	static void Init()
 	{
@@ -20,9 +20,9 @@ public:
 	static void Update()
 	{
 		int current = GetNowCount();
-		delta_Time = (current - prev) / 1000.0f;
+		deltaTime = (current - prev) / 1000.0f;
 		prev = current;
 	}
-	inline static float delta_Time;
+	inline static float deltaTime{};
 };
 #endif

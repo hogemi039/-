@@ -1,6 +1,9 @@
 #include "DxLib.h"
+#include "Object.hpp"
 #include "player.hpp"
+#include "BulletManager.hpp"
 #include "Timer.hpp"
+#include "Input.hpp"
 
 const int MAP_WIDTH = 10;
 const int MAP_HEIGHT = 10;
@@ -36,7 +39,7 @@ void DrawMap()
 	}
 }
 
-bool HitWithGround(Vector2& pos)
+bool HitWithGround(Vector2 &pos)
 {
 	int x = static_cast<int>((pos.x) / GROUND_IMAGE_SIZE);
 	int y = static_cast<int>((pos.y) / GROUND_IMAGE_SIZE);
@@ -69,26 +72,30 @@ bool HitWithGround(Vector2& pos)
 // プログラムは WinMain から始まります
 int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine, int nCmdShow)
 {
-	Player player_;
 	//フルスクリーンモードからウィンドウモードに変更
 	DxLib::ChangeWindowMode(true);
 	DxLib::SetGraphMode(1280, 720, 32);
 	if (DxLib_Init() == -1) { return -1; }
-	DxLib::LoadDivGraph("resource/sheet.png", 70, 10, 7, 32, 32, maphandle);
-	player_.Init();
-
+	Player *player_ = new Player();
+	BulletManager *bulletManager_ = new BulletManager();
+	player_->Init();
 	Time::Init();
+	DxLib::LoadDivGraph("resource/sheet.png", 70, 10, 7, 32, 32, maphandle);
 	DxLib::SetDrawScreen(DX_SCREEN_BACK);
 	//ESCキーを押すか, 画面を閉じたらループを抜ける
 	while (ProcessMessage() == FALSE && CheckHitKey(KEY_INPUT_ESCAPE) == FALSE)
 	{
 		DxLib::ClearDrawScreen();
+		//Input::InputCheck();
 		Time::Update();
-		player_.Update();
-		player_.jump_Flag = HitWithGround(player_.position);
+		player_->Update();
+		player_->jumpFlag = HitWithGround(player_->GetPosition());
+		bulletManager_->Update();
 		DrawMap();
 		DxLib::ScreenFlip();
 	}
+	delete player_;
+	delete bulletManager_;
 	DxLib_End();
 	return 0;
 }

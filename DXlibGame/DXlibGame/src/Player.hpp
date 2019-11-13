@@ -6,43 +6,68 @@
 */
 #ifndef PLAYER_HPP
 #define PLAYER_HPP
-
-#include "Vector2.hpp"
+#include "Object.hpp"
+#include "BulletManager.hpp"
 #include "Timer.hpp"
-#include "Bullet.hpp"
 
-class Player
+class Player : public Object
 {
 private:
-	//const float left{ -1.0f };
-	//const float right{ 1.0f };
 	enum DIR
 	{
 		Left = -1,
 		Right = 1
 	};
-	const float SPEED_LIMIT{ 7.0f };
-	const float FALL_ACCELERATION{ 20.0f };
-	int handle{};
-	float speed{};
-	float fall_Speed{};
-	Bullet bullet;
-	void Draw();
+	const float SPEEDLIMIT{ 7.0f };
+	const float FALLACCELERATION{ 20.0f };
+	const float SPEED{ 3.0f };
+	float fallSpeed_{};
+	BulletManager *bulletmanager{};
 	void Fall();
 	void Jump();
 	void Move(float);
 public:
-	float player_Dir{};
-	bool jump_Flag{};
-	Vector2 position{};
-	Vector2 move_Vector{};
-	Player()
-	{
-		player_Dir = DIR::Right;
-		speed = 3.0f;
-		fall_Speed = 0.0f;
-	}
+	Vector2 moveVector_{};
+	float playerDir{};
+	bool jumpFlag{};
 	void Init();
+	void Render();
 	void Update();
+	Player();
+	~Player() = default;
 };
+//#include "Vector2.hpp"
+//#include "Timer.hpp"
+//#include "Bullet.hpp"
+//#include "Input.hpp"
+//
+//class Player
+//{
+//private:
+//	//const float left{ -1.0f };
+//	//const float right{ 1.0f };
+//	enum DIR
+//	{
+//		Left = -1,
+//		Right = 1
+//	};
+//	const float SPEEDLIMIT{ 7.0f };
+//	const float FALLACCELERATION{ 20.0f };
+//	int handle{};
+//	float speed{};
+//	float fallSpeed{};
+//	Bullet *bullet;
+//	void Render();
+//	void Fall();
+//	void Jump();
+//	void Move(float);
+//public:
+//	float playerDir{};
+//	bool jumpFlag{};
+//	Vector2 position{};
+//	Vector2 moveVector{};
+//	Player();
+//	void Init();
+//	void Update();
+//};
 #endif

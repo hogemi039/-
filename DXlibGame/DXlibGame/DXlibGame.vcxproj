@@ -158,15 +158,20 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="src\Bullet.cpp" />
+    <ClCompile Include="src\BulletManager.cpp" />
+    <ClCompile Include="src\Input.cpp" />
     <ClCompile Include="src\Main.cpp" />
     <ClCompile Include="src\Player.cpp" />
     <ClCompile Include="src\Vector2.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\Bullet.hpp" />
+    <ClInclude Include="src\BulletManager.hpp" />
     <ClInclude Include="src\Input.hpp" />
     <ClInclude Include="src\Map.hpp" />
+    <ClInclude Include="src\Object.hpp" />
     <ClInclude Include="src\Player.hpp" />
+    <ClInclude Include="src\Singleton.hpp" />
     <ClInclude Include="src\TImer.hpp" />
     <ClInclude Include="src\Vector2.hpp" />
   </ItemGroup>
