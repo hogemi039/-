@@ -7,6 +7,9 @@
 #include "DxLib.h"
 #include "Player.hpp"
 
+/**
+* @brief コンストラクタ
+*/
 Player::Player()
 {
 	bulletmanager = new BulletManager();
@@ -14,11 +17,27 @@ Player::Player()
 	playerDir = Right;
 }
 
+Player::~Player()
+{
+	delete bulletmanager; 
+}
+
+/**
+* @brief 初期化処理
+*/
 void Player::Init()
 {
 	position_ = Vector2(0.0f, 0.0f);
 }
 
+Vector2& Player::GetPosition()
+{
+	return position_;
+}
+
+/**
+* @brief 落下処理
+*/
 void Player::Fall()
 {
 	if (jumpFlag)
@@ -38,6 +57,9 @@ void Player::Fall()
 	}
 }
 
+/**
+* @brief ジャンプ処理
+*/
 void Player::Jump()
 {
 	if (!jumpFlag && CheckHitKey(KEY_INPUT_SPACE))
@@ -47,17 +69,28 @@ void Player::Jump()
 	}
 }
 
+/**
+* @brief playerの左右移動
+* @param dir 左(-1)右(1)どちらか入力した値を持っている
+*/
 void Player::Move(float dir)
 {
 	moveVector_.x += SPEED * dir;
 	position_.x += moveVector_.x;
 }
 
+/**
+* @brief 描画処理
+*/
 void Player::Render()
 {
 	DxLib::DrawGraph(static_cast<int>(position_.x), static_cast<int>(position_.y), handle_, true);
+	bulletmanager->Render();
 }
 
+/**
+* @brief 更新処理
+*/
 void Player::Update()
 {
 	moveVector_ = Vector2(0.0f, 0.0f);
@@ -75,10 +108,9 @@ void Player::Update()
 	}
 	if (CheckHitKey(KEY_INPUT_B) == 1)
 	{
-		bulletmanager->Shot(position_, moveVector_);
+		bulletmanager->Shot(position_, playerDir);
 	}
-	
-	Render();
+	bulletmanager->Update();
 }
 
 ///**

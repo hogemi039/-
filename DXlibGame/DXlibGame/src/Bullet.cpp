@@ -6,11 +6,16 @@
 */
 #include "Bullet.hpp"
 
-Bullet::Bullet(Vector2 position, Vector2 moveVector)
+Bullet::Bullet(Vector2 &position, float &dir)
 {
 	handle_ = DxLib::LoadGraph("resource/Bullet.png");
 	this->position_ = position;
-	this->moveVector_ = moveVector;
+	this->moveVector_ = Vector2(dir, 0);
+}
+
+Vector2& Bullet::GetPosition()
+{
+	return position_;
 }
 
 void Bullet::Move()
@@ -26,7 +31,7 @@ void Bullet::Render()
 void Bullet::Update()
 {
 	Move();
-	Render();
+	//Render();
 }
 
 

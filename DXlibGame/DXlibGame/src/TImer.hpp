@@ -6,7 +6,6 @@
 */
 #ifndef TIMER_HPP
 #define TIMER_HPP
-
 #include <DxLib.h>
 
 class Time

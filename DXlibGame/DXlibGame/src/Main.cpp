@@ -1,13 +1,14 @@
 #include "DxLib.h"
-#include "Object.hpp"
 #include "player.hpp"
+#include "Object.hpp"
 #include "BulletManager.hpp"
 #include "Timer.hpp"
 #include "Input.hpp"
 
-const int MAP_WIDTH = 10;
-const int MAP_HEIGHT = 10;
-const int GROUND_IMAGE_SIZE = 32;
+//定数
+const int MAP_WIDTH{ 10 };
+const int MAP_HEIGHT{ 10 };
+const int GROUND_IMAGE_SIZE{ 32 };
 const int map[MAP_HEIGHT][MAP_WIDTH] =
 {
 	{0,0,0,0,0,0,0,0,0,0},
@@ -39,6 +40,10 @@ void DrawMap()
 	}
 }
 
+/**
+* @brief 地面との当たり判定と座標を押し戻す関数
+* @param pos 対象の座標
+*/
 bool HitWithGround(Vector2 &pos)
 {
 	int x = static_cast<int>((pos.x) / GROUND_IMAGE_SIZE);
@@ -69,15 +74,14 @@ bool HitWithGround(Vector2 &pos)
 	return true;
 }
 
-// プログラムは WinMain から始まります
 int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine, int nCmdShow)
 {
 	//フルスクリーンモードからウィンドウモードに変更
 	DxLib::ChangeWindowMode(true);
+	//ウィンドウサイズを指定
 	DxLib::SetGraphMode(1280, 720, 32);
 	if (DxLib_Init() == -1) { return -1; }
 	Player *player_ = new Player();
-	BulletManager *bulletManager_ = new BulletManager();
 	player_->Init();
 	Time::Init();
 	DxLib::LoadDivGraph("resource/sheet.png", 70, 10, 7, 32, 32, maphandle);
@@ -90,12 +94,11 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine
 		Time::Update();
 		player_->Update();
 		player_->jumpFlag = HitWithGround(player_->GetPosition());
-		bulletManager_->Update();
 		DrawMap();
+		player_->Render();
 		DxLib::ScreenFlip();
 	}
 	delete player_;
-	delete bulletManager_;
 	DxLib_End();
 	return 0;
 }
