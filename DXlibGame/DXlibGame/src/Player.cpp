@@ -4,7 +4,6 @@
 * @auther 伊藤 広樹
 * @date   2019/10/13
 */
-#include "DxLib.h"
 #include "Player.hpp"
 
 /**
@@ -14,7 +13,7 @@ Player::Player()
 {
 	bulletmanager = new BulletManager();
 	handle_ = DxLib::LoadGraph("resource/purun.png");
-	playerDir = Right;
+	playerDir_ = Right;
 }
 
 Player::~Player()
@@ -30,6 +29,9 @@ void Player::Init()
 	position_ = Vector2(0.0f, 0.0f);
 }
 
+/**
+* @brief 座標を返すゲッター
+*/
 Vector2& Player::GetPosition()
 {
 	return position_;
@@ -40,7 +42,7 @@ Vector2& Player::GetPosition()
 */
 void Player::Fall()
 {
-	if (jumpFlag)
+	if (jumpFlag_)
 	{
 		fallSpeed_ += FALLACCELERATION * Time::deltaTime;
 		if (fallSpeed_ > FALLACCELERATION)
@@ -52,7 +54,7 @@ void Player::Fall()
 	}
 	else
 	{
-		DrawFormatString(0, 50, GetColor(255, 255, 255), "ばーか");
+		DrawFormatString(0, 50, GetColor(255, 255, 255), "着地");
 		fallSpeed_ = 0;
 	}
 }
@@ -62,10 +64,10 @@ void Player::Fall()
 */
 void Player::Jump()
 {
-	if (!jumpFlag && CheckHitKey(KEY_INPUT_SPACE))
+	if (!jumpFlag_ && CheckHitKey(KEY_INPUT_SPACE))
 	{
-  		jumpFlag = true;
-		fallSpeed_ = -7.5f;
+  		jumpFlag_ = true;
+		fallSpeed_ = jumpForce_;
 	}
 }
 
@@ -98,17 +100,17 @@ void Player::Update()
 	Fall();
 	if (DxLib::CheckHitKey(KEY_INPUT_LEFT) == 1)
 	{
-		playerDir = Left;
-		Move(playerDir);
+		playerDir_ = Left;
+		Move(playerDir_);
 	}
 	else if (DxLib::CheckHitKey(KEY_INPUT_RIGHT) == 1)
 	{
-		playerDir = Right;
-		Move(playerDir);
+		playerDir_ = Right;
+		Move(playerDir_);
 	}
-	if (CheckHitKey(KEY_INPUT_B) == 1)
+	if (Input::GetInstance().GetKeyDown(KEY_INPUT_B))
 	{
-		bulletmanager->Shot(position_, playerDir);
+		bulletmanager->Shot(position_, playerDir_);
 	}
 	bulletmanager->Update();
 }

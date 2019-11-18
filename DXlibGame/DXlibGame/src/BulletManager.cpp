@@ -5,22 +5,24 @@
 * @date   2019/11/12
 */
 #include "BulletManager.hpp"
-
 #include <algorithm>
 
+/**
+* @brief 弾を動的生成する処理
+* @param position 弾を撃ったオブジェクトの座標
+* @param dir 弾を撃ったオブジェクトの向き
+*/
 void BulletManager::Shot(Vector2 &position, float &dir)
 {
-	//for (int i = 0; i < MAX_BULLET; i++)
+	if(bullets.size() < MAX_BULLET)
 	{
-		//なんか配列外参照（？）おこしてる
-		//if (bullets.at(i) == nullptr)
-		//{
 		bullets.push_back(new Bullet(position, dir));
-		//break;
-	//}
 	}
 }
 
+/**
+* @brief 更新処理
+*/
 void BulletManager::Update()
 {
 	//後ろからforを回すのは、消したあと配列はなくなった部分を詰めるので調べたい要素の+1を見てしまう。
@@ -29,10 +31,9 @@ void BulletManager::Update()
 		[](Bullet* bullet) {
 			bullet->Update();
 			auto bulletPos = bullet->GetPosition();
-			return bulletPos.x > 500;
+			return bulletPos.x > 500 || bulletPos.x < 0;
 		}),
 		bullets.end());
-
 	/*for (int i = bullets.size() - 1; i >= 0; i--)
 	{
 		bullets.at(i)->Update();
@@ -44,6 +45,9 @@ void BulletManager::Update()
 	}*/
 }
 
+/**
+* @brief 描画処理
+*/
 void BulletManager::Render()
 {
 	for (int i = 0; i < bullets.size(); i++)

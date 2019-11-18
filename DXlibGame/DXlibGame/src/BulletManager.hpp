@@ -12,7 +12,8 @@
 class BulletManager
 {
 private:
-	const int MAX_BULLET = 3;
+	const float DELAY{ 0.2f };
+	const int MAX_BULLET{ 3 };
 	std::vector<Bullet*> bullets;
 public:
 	void Shot(Vector2&, float&);

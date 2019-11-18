@@ -60,13 +60,11 @@ bool HitWithGround(Vector2 &pos)
 		//下に地面がない
 		if (map[y][x] == 0)
 		{
-			/*pos.jump_flag = true;*/
 			return true;
 		}
 		//下に地面がある
 		if (map[y][x] != 0 || map[y][x + 1] != 0)
 		{
-			/*pos.jump_flag = false;*/
 			pos.y = static_cast<float>((y - 1) * GROUND_IMAGE_SIZE);
 			return false;
 		}
@@ -80,20 +78,20 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine
 	DxLib::ChangeWindowMode(true);
 	//ウィンドウサイズを指定
 	DxLib::SetGraphMode(1280, 720, 32);
-	if (DxLib_Init() == -1) { return -1; }
+	if (DxLib::DxLib_Init() == -1) { return -1; }
 	Player *player_ = new Player();
 	player_->Init();
 	Time::Init();
 	DxLib::LoadDivGraph("resource/sheet.png", 70, 10, 7, 32, 32, maphandle);
 	DxLib::SetDrawScreen(DX_SCREEN_BACK);
 	//ESCキーを押すか, 画面を閉じたらループを抜ける
-	while (ProcessMessage() == FALSE && CheckHitKey(KEY_INPUT_ESCAPE) == FALSE)
+	while (DxLib::ProcessMessage() == FALSE && DxLib::CheckHitKey(KEY_INPUT_ESCAPE) == FALSE)
 	{
 		DxLib::ClearDrawScreen();
-		//Input::InputCheck();
+		Input::GetInstance().Update();
 		Time::Update();
 		player_->Update();
-		player_->jumpFlag = HitWithGround(player_->GetPosition());
+		player_->jumpFlag_ = HitWithGround(player_->GetPosition());
 		DrawMap();
 		player_->Render();
 		DxLib::ScreenFlip();

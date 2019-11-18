@@ -13,7 +13,6 @@
 class Bullet : public Object
 {
 private:
-	const float DELAY{ 15.0f };
 	const float SPEED{ 10.0f };
 	Vector2 moveVector_{};
 	bool active{};

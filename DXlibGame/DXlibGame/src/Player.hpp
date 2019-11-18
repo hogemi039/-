@@ -6,6 +6,8 @@
 */
 #ifndef PLAYER_HPP
 #define PLAYER_HPP
+#include "DxLib.h"
+#include "Input.hpp"
 #include "Object.hpp"
 #include "BulletManager.hpp"
 #include "Timer.hpp"
@@ -22,15 +24,16 @@ private:
 	const float FALLACCELERATION{ 20.0f };
 	const float SPEED{ 3.0f };
 	float fallSpeed_{};
+	float jumpForce_{ -7.5f };
 	BulletManager *bulletmanager{};
 	void Fall();
 	void Jump();
 	void Move(float);
 public:
-	Vector2& GetPosition();
 	Vector2 moveVector_{};
-	float playerDir{};
-	bool jumpFlag{};
+	float playerDir_{};
+	bool jumpFlag_{};
+	Vector2& GetPosition();
 	void Init();
 	void Render();
 	void Update();
