@@ -21,7 +21,7 @@ public:
 	void Move();
 	void Render();
 	void Update();
-	Bullet(Vector2&, float&);
+	Bullet(const Vector2, const float);
 	~Bullet() = default;
 };
 #endif

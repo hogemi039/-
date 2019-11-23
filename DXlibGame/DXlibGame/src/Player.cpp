@@ -45,9 +45,9 @@ void Player::Fall()
 	if (jumpFlag_)
 	{
 		fallSpeed_ += FALLACCELERATION * Time::deltaTime;
-		if (fallSpeed_ > FALLACCELERATION)
+		if (fallSpeed_ > FALLSPEEDLIMIT)
 		{
-			fallSpeed_ = FALLACCELERATION;
+			fallSpeed_ = FALLSPEEDLIMIT;
 		}
 		moveVector_.y += fallSpeed_;
 		position_.y += moveVector_.y;
@@ -57,6 +57,58 @@ void Player::Fall()
 		DrawFormatString(0, 50, GetColor(255, 255, 255), "着地");
 		fallSpeed_ = 0;
 	}
+
+	if (jumpFlag_)
+	{
+		if (fallSpeed_ < 0)
+		{
+			//上昇中のアタリ
+			int x = GetPosition().x;
+			int y = GetPosition().y / GROUND_IMAGE_SIZE;
+
+			if (HitWithGround(x / GROUND_IMAGE_SIZE, y))
+			{
+				jumpFlag_ = false;
+				fallSpeed_ = 0;
+				GetPosition().y = (y + 1) * GROUND_IMAGE_SIZE;
+			}
+			else if (HitWithGround((x + 31) / GROUND_IMAGE_SIZE, y))
+			{
+				jumpFlag_ = false;
+				fallSpeed_ = 0;
+				GetPosition().y = (y + 1) * GROUND_IMAGE_SIZE;
+			}
+		}
+		else
+		{
+			//落下中のアタリ
+			int x = GetPosition().x;
+			int y = (GetPosition().y + 31) / GROUND_IMAGE_SIZE;
+
+			if (HitWithGround(x / GROUND_IMAGE_SIZE, y))
+			{
+				jumpFlag_ = false;
+				fallSpeed_ = 0;
+				GetPosition().y = (y - 1) * GROUND_IMAGE_SIZE;
+			}
+			else if (HitWithGround((x + 31) / GROUND_IMAGE_SIZE, y))
+			{
+				jumpFlag_ = false;
+				fallSpeed_ = 0;
+				GetPosition().y = (y - 1) * GROUND_IMAGE_SIZE;
+			}
+		}
+	}
+	//着地してるとき
+	else
+	{
+		int x = GetPosition().x;
+		int y = (GetPosition().y + 32) / GROUND_IMAGE_SIZE;
+		if (!HitWithGround(x / GROUND_IMAGE_SIZE, y) && !HitWithGround((x + 31) / GROUND_IMAGE_SIZE, y))
+		{
+			jumpFlag_ = true;
+		}
+	}
 }
 
 /**
@@ -64,7 +116,7 @@ void Player::Fall()
 */
 void Player::Jump()
 {
-	if (!jumpFlag_ && CheckHitKey(KEY_INPUT_SPACE))
+	if (!jumpFlag_ && Input::GetInstance().GetKeyDown(KEY_INPUT_SPACE))
 	{
   		jumpFlag_ = true;
 		fallSpeed_ = jumpForce_;
@@ -79,6 +131,27 @@ void Player::Move(float dir)
 {
 	moveVector_.x += SPEED * dir;
 	position_.x += moveVector_.x;
+	//横の判定
+	{
+		int x = GetPosition().x;
+		int y = GetPosition().y;
+		if (HitWithGround((x + 31) / GROUND_IMAGE_SIZE, y / GROUND_IMAGE_SIZE))
+		{
+			GetPosition().x = x / GROUND_IMAGE_SIZE * GROUND_IMAGE_SIZE;
+		}
+		else if (HitWithGround(x / GROUND_IMAGE_SIZE, y / GROUND_IMAGE_SIZE))
+		{
+			GetPosition().x = (x / GROUND_IMAGE_SIZE + 1) * GROUND_IMAGE_SIZE;
+		}
+		else if (HitWithGround((x + 31) / GROUND_IMAGE_SIZE, (y + 31) / GROUND_IMAGE_SIZE))
+		{
+			GetPosition().x = x / GROUND_IMAGE_SIZE * GROUND_IMAGE_SIZE;
+		}
+		else if (HitWithGround(x / GROUND_IMAGE_SIZE, (y + 31) / GROUND_IMAGE_SIZE))
+		{
+			GetPosition().x = (x / GROUND_IMAGE_SIZE + 1) * GROUND_IMAGE_SIZE;
+		}
+	}
 }
 
 /**
@@ -98,12 +171,12 @@ void Player::Update()
 	moveVector_ = Vector2(0.0f, 0.0f);
 	Jump();
 	Fall();
-	if (DxLib::CheckHitKey(KEY_INPUT_LEFT) == 1)
+	if (Input::GetInstance().GetKey(KEY_INPUT_LEFT))
 	{
 		playerDir_ = Left;
 		Move(playerDir_);
 	}
-	else if (DxLib::CheckHitKey(KEY_INPUT_RIGHT) == 1)
+	else if (Input::GetInstance().GetKey(KEY_INPUT_RIGHT))
 	{
 		playerDir_ = Right;
 		Move(playerDir_);
@@ -114,108 +187,3 @@ void Player::Update()
 	}
 	bulletmanager->Update();
 }
-
-///**
-//* @brief コンストラクタ
-//*/
-//Player::Player()
-//{
-//	handle = DxLib::LoadGraph("resource/purun.png");
-//	playerDir = Right;
-//	speed = 3.0f;
-//	fallSpeed = 0.0f;
-//}
-//
-///**
-//* @brief 初期化処理
-//*/
-//void Player::Init()
-//{
-//	position = Vector2{ 0.f, 0.f };
-//}
-//
-///**
-//* @brief playerの左右移動
-//* @param dir 左(-1)右(1)どちらか入力した値を持っている
-//*/
-//void Player::Move(float dir)
-//{
-//	moveVector.x += speed * dir;
-//	position.x += moveVector.x;
-//}
-//
-///**
-//* @brief ジャンプ処理
-//*/
-//void Player::Jump()
-//{
-//	if (!jumpFlag && CheckHitKey(KEY_INPUT_SPACE))
-//	{
-//  		jumpFlag = true;
-//		fallSpeed = -7.5f;
-//	}
-//}
-//
-///**
-//* @brief 落下処理
-//*/
-//void Player::Fall()
-//{
-//	if (jumpFlag)
-//	{
-//		fallSpeed += FALLACCELERATION * Time::deltaTime;
-//		if (fallSpeed > FALLACCELERATION)
-//		{
-//			fallSpeed = FALLACCELERATION;
-//		}
-//		moveVector.y += fallSpeed;
-//		position.y += moveVector.y;
-//	}
-//	else
-//	{
-//		DrawFormatString(0, 50, GetColor(255, 255, 255), "ばーか");
-//		fallSpeed = 0;
-//	}
-//}
-//
-///**
-//* @brief 描画処理
-//*/
-//void Player::Render()
-//{
-//	//下記2行はデバッグ用
-//	DxLib::DrawFormatString(0, 100, GetColor(255, 255, 255), "%d", jumpFlag);
-//	DxLib::DrawFormatString(0, 0, GetColor(255, 255, 255), "落下速度：%.2f", fallSpeed);
-//
-//	//画像を表示
-//	DxLib::DrawGraph(static_cast<int>(position.x), static_cast<int>(position.y), handle, true);
-//}
-//
-///**
-//* @brief 更新処理
-//*/
-//void Player::Update()
-//{
-//	//移動量をリセット
-//	moveVector = Vector2{ 0.0f, 0.0f };
-//	Jump();
-//	Fall();
-//	if (/*Input::key[KEY_INPUT_LEFT] >= 1*/CheckHitKey(KEY_INPUT_LEFT))
-//	{
-//		DrawFormatString(200, 0, GetColor(255, 255, 255), "←を入力した!");
-//		playerDir = Left;
-//		Move(playerDir);
-//	}
-//	else if (CheckHitKey(KEY_INPUT_RIGHT))
-//	{
-//		playerDir = Right;
-//		Move(playerDir);
-//	}
-//	if (CheckHitKey(KEY_INPUT_B))
-//	{
-//		bullet = new Bullet(position.x, position.y);
-//		//bullet.CreateBullet(position, playerDir);
-//	}
-//	bullet->Update();
-//	Render();
-//}

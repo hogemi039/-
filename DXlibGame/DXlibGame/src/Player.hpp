@@ -11,6 +11,7 @@
 #include "Object.hpp"
 #include "BulletManager.hpp"
 #include "Timer.hpp"
+#include "Map.hpp"
 
 class Player : public Object
 {
@@ -22,8 +23,8 @@ private:
 	};
 	const float SPEEDLIMIT{ 7.0f };
 	const float FALLACCELERATION{ 20.0f };
+	const float FALLSPEEDLIMIT{ 20.0f };
 	const float SPEED{ 3.0f };
-	float fallSpeed_{};
 	float jumpForce_{ -7.5f };
 	BulletManager *bulletmanager{};
 	void Fall();
@@ -31,6 +32,7 @@ private:
 	void Move(float);
 public:
 	Vector2 moveVector_{};
+	float fallSpeed_{};
 	float playerDir_{};
 	bool jumpFlag_{};
 	Vector2& GetPosition();

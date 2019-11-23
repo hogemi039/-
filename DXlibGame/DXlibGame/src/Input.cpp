@@ -25,7 +25,7 @@ void Input::Update()
 /**
 * @brief ‰Ÿ‚µ‚Á‚Ï‚È‚µ‚Ìó‘Ô‚ğæ‚éˆ—
 */
-bool Input::GetKey(int key)
+bool Input::GetKey(const int key)
 {
 	return current_[key] && prev_[key];
 }
@@ -33,7 +33,7 @@ bool Input::GetKey(int key)
 /**
 * @brief ‰Ÿ‚µ‚½uŠÔ‚ğæ‚éˆ—
 */
-bool Input::GetKeyDown(int key)
+bool Input::GetKeyDown(const int key)
 {
 	return current_[key] && !prev_[key];
 }
@@ -41,7 +41,7 @@ bool Input::GetKeyDown(int key)
 /**
 * @brief —£‚µ‚½uŠÔ‚ğæ‚éˆ—
 */
-bool Input::GetKeyUp(int key)
+bool Input::GetKeyUp(const int key)
 {
 	return !current_[key] && prev_[key];
 }

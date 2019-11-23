@@ -12,7 +12,7 @@
 * @param position 弾を撃ったオブジェクトの座標
 * @param dir 弾を撃ったオブジェクトの向き
 */
-void BulletManager::Shot(Vector2 &position, float &dir)
+void BulletManager::Shot(const Vector2 position, const float dir)
 {
 	if(bullets.size() < MAX_BULLET)
 	{

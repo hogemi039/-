@@ -11,7 +11,7 @@
 * @param position 弾を撃ったオブジェクトの座標
 * @param dir 弾を撃ったオブジェクトの向き
 */
-Bullet::Bullet(Vector2 &position, float &dir)
+Bullet::Bullet(const Vector2 position, const float dir)
 {
 	handle_ = DxLib::LoadGraph("resource/Bullet.png");
 	this->position_ = position;

@@ -16,7 +16,7 @@ private:
 	const int MAX_BULLET{ 3 };
 	std::vector<Bullet*> bullets;
 public:
-	void Shot(Vector2&, float&);
+	void Shot(const Vector2, const float);
 	void Update();
 	void Render();
 	BulletManager() = default;

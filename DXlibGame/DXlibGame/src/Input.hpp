@@ -14,9 +14,9 @@ private:
 	char current_[256], prev_[256];
 public:
 	void Update();
-	bool GetKey(int);
-	bool GetKeyDown(int);
-	bool GetKeyUp(int);
+	bool GetKey(const int);
+	bool GetKeyDown(const int);
+	bool GetKeyUp(const int);
 	Input() = default;
 	~Input() = default;
 };
