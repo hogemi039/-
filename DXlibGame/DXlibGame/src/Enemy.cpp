@@ -5,6 +5,7 @@
 * @date   2019/11/30
 */
 #include "Enemy.hpp"
+#include "Timer.hpp"
 
 Enemy::Enemy()
 {
@@ -26,6 +27,15 @@ void Enemy::SetPosition(Vector2 position)
 
 void Enemy::Fall()
 {
+	if (isGround_)
+	{
+		fallSpeed_ += FALLACCELERATION * Time::deltaTime;
+		if (fallSpeed_ > FALLSPEEDLIMIT)
+		{
+			fallSpeed_ = FALLSPEEDLIMIT;
+		}
+	}
+	moveVector_.y = fallSpeed_;
 }
 
 void Enemy::Move()
@@ -40,6 +50,7 @@ void Enemy::Render()
 
 void Enemy::Update()
 {
+	moveVector_ = Vector2(0.f, 0.f);
 	Fall();
 	Move();
 }

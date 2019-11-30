@@ -34,7 +34,7 @@ public:
 	Vector2 moveVector_{};
 	float fallSpeed_{};
 	float playerDir_{};
-	bool jumpFlag_{};
+	bool isJump_{};
 	Vector2& GetPosition();
 	void Init();
 	void Render();

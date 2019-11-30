@@ -17,7 +17,9 @@ private:
 		Left = -1,
 		Right = 1
 	};
-	bool jumpFlag_{};
+	const float FALLACCELERATION{ 20.0f };
+	const float FALLSPEEDLIMIT{ 20.0f };
+	bool isGround_{};
 	void Fall();
 	void Move();
 public:

@@ -42,7 +42,7 @@ Vector2& Player::GetPosition()
 */
 void Player::Fall()
 {
-	if (jumpFlag_)
+	if (isJump_)
 	{
 		fallSpeed_ += FALLACCELERATION * Time::deltaTime;
 		if (fallSpeed_ > FALLSPEEDLIMIT)
@@ -58,7 +58,7 @@ void Player::Fall()
 		fallSpeed_ = 0;
 	}
 
-	if (jumpFlag_)
+	if (isJump_)
 	{
 		if (fallSpeed_ < 0)
 		{
@@ -68,13 +68,13 @@ void Player::Fall()
 
 			if (HitWithGround(x / GROUND_IMAGE_SIZE, y))
 			{
-				jumpFlag_ = false;
+				isJump_ = false;
 				fallSpeed_ = 0;
 				GetPosition().y = (y + 1) * GROUND_IMAGE_SIZE;
 			}
 			else if (HitWithGround((x + 31) / GROUND_IMAGE_SIZE, y))
 			{
-				jumpFlag_ = false;
+				isJump_ = false;
 				fallSpeed_ = 0;
 				GetPosition().y = (y + 1) * GROUND_IMAGE_SIZE;
 			}
@@ -87,13 +87,13 @@ void Player::Fall()
 
 			if (HitWithGround(x / GROUND_IMAGE_SIZE, y))
 			{
-				jumpFlag_ = false;
+				isJump_ = false;
 				fallSpeed_ = 0;
 				GetPosition().y = (y - 1) * GROUND_IMAGE_SIZE;
 			}
 			else if (HitWithGround((x + 31) / GROUND_IMAGE_SIZE, y))
 			{
-				jumpFlag_ = false;
+				isJump_ = false;
 				fallSpeed_ = 0;
 				GetPosition().y = (y - 1) * GROUND_IMAGE_SIZE;
 			}
@@ -108,7 +108,7 @@ void Player::Fall()
 		//¶‰E‚Ç‚¿‚ç‚à’…’n‚µ‚Ä‚¢‚È‚¯‚ê‚Î•‚‚¢‚Ä‚é”»’è‚É‚È‚é
 		if (!HitWithGround(x / GROUND_IMAGE_SIZE, y) && !HitWithGround((x + 31) / GROUND_IMAGE_SIZE, y))
 		{
-			jumpFlag_ = true;
+			isJump_ = true;
 		}
 	}
 }
@@ -118,9 +118,9 @@ void Player::Fall()
 */
 void Player::Jump()
 {
-	if (!jumpFlag_ && Input::GetInstance().GetKeyDown(KEY_INPUT_SPACE))
+	if (!isJump_ && Input::GetInstance().GetKeyDown(KEY_INPUT_SPACE))
 	{
-  		jumpFlag_ = true;
+  		isJump_ = true;
 		fallSpeed_ = jumpForce_;
 	}
 }
