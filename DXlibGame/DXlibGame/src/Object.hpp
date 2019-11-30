@@ -19,5 +19,4 @@ public:
 	Object() = default;
 	virtual ~Object() = default;
 };
-
 #endif

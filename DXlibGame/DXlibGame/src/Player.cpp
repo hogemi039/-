@@ -104,6 +104,8 @@ void Player::Fall()
 	{
 		int x = GetPosition().x;
 		int y = (GetPosition().y + 32) / GROUND_IMAGE_SIZE;
+		//ここのif文が分かれていたのでバグってた（左右どちらかが着いていなければ浮いてる判定になっていたから）
+		//左右どちらも着地していなければ浮いてる判定になる
 		if (!HitWithGround(x / GROUND_IMAGE_SIZE, y) && !HitWithGround((x + 31) / GROUND_IMAGE_SIZE, y))
 		{
 			jumpFlag_ = true;
