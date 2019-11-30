@@ -13,6 +13,7 @@ Enemy::Enemy()
 	moveVector_ = Vector2(0.f, 0.f);
 	dir_ = Left;
 	fallSpeed_ = 0.f;
+	handle_ = DxLib::LoadGraph("resource/purun.png");
 }
 
 Vector2 Enemy::GetPosition()
@@ -27,7 +28,7 @@ void Enemy::SetPosition(Vector2 position)
 
 void Enemy::Fall()
 {
-	if (isGround_)
+	//if (isJump_)
 	{
 		fallSpeed_ += FALLACCELERATION * Time::deltaTime;
 		if (fallSpeed_ > FALLSPEEDLIMIT)
@@ -35,7 +36,12 @@ void Enemy::Fall()
 			fallSpeed_ = FALLSPEEDLIMIT;
 		}
 	}
-	moveVector_.y = fallSpeed_;
+	/*else
+	{
+		fallSpeed_ = 0.f;
+	}*/
+	moveVector_.y += fallSpeed_;
+	position_.y += moveVector_.y;
 }
 
 void Enemy::Move()
@@ -45,7 +51,7 @@ void Enemy::Move()
 
 void Enemy::Render()
 {
-
+	DxLib::DrawGraph(static_cast<int>(position_.x), static_cast<int>(position_.y), handle_, true);
 }
 
 void Enemy::Update()

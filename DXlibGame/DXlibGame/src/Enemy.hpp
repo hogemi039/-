@@ -19,7 +19,7 @@ private:
 	};
 	const float FALLACCELERATION{ 20.0f };
 	const float FALLSPEEDLIMIT{ 20.0f };
-	bool isGround_{};
+	bool isJump_{};
 	void Fall();
 	void Move();
 public:
