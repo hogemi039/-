@@ -6,12 +6,12 @@
 */
 #include "Enemy.hpp"
 #include "Timer.hpp"
+#include "Map.hpp"
 
 Enemy::Enemy()
 {
 	position_ = Vector2(150.f, 0.f);
 	moveVector_ = Vector2(0.f, 0.f);
-	dir_ = Left;
 	fallSpeed_ = 0.f;
 	handle_ = DxLib::LoadGraph("resource/purun.png");
 }
@@ -36,17 +36,41 @@ void Enemy::Fall()
 			fallSpeed_ = FALLSPEEDLIMIT;
 		}
 	}
-	/*else
-	{
-		fallSpeed_ = 0.f;
-	}*/
+	//else
+	//{
+	//	fallSpeed_ = 0.f;
+	//}
 	moveVector_.y += fallSpeed_;
 	position_.y += moveVector_.y;
 }
 
 void Enemy::Move()
 {
-
+	moveVector_.x += 0.5f;
+	position_.x += moveVector_.x;
+	//â°ÇÃÉAÉ^ÉäîªíË
+	{
+		int x = position_.x;
+		int y = position_.y;
+		//è„
+		if (GetMapState(x / GROUND_IMAGE_SIZE, y / GROUND_IMAGE_SIZE))
+		{
+			position_.x = (x / GROUND_IMAGE_SIZE + 1) * GROUND_IMAGE_SIZE;
+		}
+		else if(GetMapState((x + 31) / GROUND_IMAGE_SIZE, y / GROUND_IMAGE_SIZE))
+		{
+			position_.x = x / GROUND_IMAGE_SIZE * GROUND_IMAGE_SIZE;
+		}
+		//â∫
+		else if (GetMapState(x / GROUND_IMAGE_SIZE, (y + 31) / GROUND_IMAGE_SIZE))
+		{
+			position_.x = (x / GROUND_IMAGE_SIZE + 1) * GROUND_IMAGE_SIZE;
+		}
+		else if (GetMapState((x + 31) / GROUND_IMAGE_SIZE, (y + 31) / GROUND_IMAGE_SIZE))
+		{
+			position_.x = x / GROUND_IMAGE_SIZE * GROUND_IMAGE_SIZE;
+		}
+	}
 }
 
 void Enemy::Render()

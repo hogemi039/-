@@ -12,11 +12,6 @@
 class Enemy : Object
 {
 private:
-	enum DIR
-	{
-		Left = -1,
-		Right = 1
-	};
 	const float FALLACCELERATION{ 20.0f };
 	const float FALLSPEEDLIMIT{ 20.0f };
 	bool isJump_{};
@@ -24,7 +19,6 @@ private:
 	void Move();
 public:
 	Vector2 moveVector_{};
-	float dir_{};
 	float fallSpeed_{};
 	Vector2 GetPosition();
 	void SetPosition(Vector2);

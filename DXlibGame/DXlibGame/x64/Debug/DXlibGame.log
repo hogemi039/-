@@ -1,2 +1,8 @@
 ﻿  Enemy.cpp
+c:\users\user\documents\dxlibgame\dxlibgame\dxlibgame\src\enemy.cpp(53): warning C4244: '初期化中': 'float' から 'int' への変換です。データが失われる可能性があります。
+c:\users\user\documents\dxlibgame\dxlibgame\dxlibgame\src\enemy.cpp(54): warning C4244: '初期化中': 'float' から 'int' への変換です。データが失われる可能性があります。
+c:\users\user\documents\dxlibgame\dxlibgame\dxlibgame\src\enemy.cpp(58): warning C4244: '=': 'int' から 'float' への変換です。データが失われる可能性があります。
+c:\users\user\documents\dxlibgame\dxlibgame\dxlibgame\src\enemy.cpp(62): warning C4244: '=': 'int' から 'float' への変換です。データが失われる可能性があります。
+c:\users\user\documents\dxlibgame\dxlibgame\dxlibgame\src\enemy.cpp(67): warning C4244: '=': 'int' から 'float' への変換です。データが失われる可能性があります。
+c:\users\user\documents\dxlibgame\dxlibgame\dxlibgame\src\enemy.cpp(71): warning C4244: '=': 'int' から 'float' への変換です。データが失われる可能性があります。
   DXlibGame.vcxproj -> C:\Users\user\Documents\DxLibGame\DXlibGame\x64\Debug\DXlibGame.exe

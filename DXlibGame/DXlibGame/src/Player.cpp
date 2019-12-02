@@ -32,7 +32,7 @@ void Player::Init()
 /**
 * @brief 座標を返すゲッター
 */
-Vector2& Player::GetPosition()
+Vector2 Player::GetPosition()
 {
 	return position_;
 }
@@ -63,50 +63,50 @@ void Player::Fall()
 		if (fallSpeed_ < 0)
 		{
 			//上昇中のアタリ
-			int x = GetPosition().x;
-			int y = GetPosition().y / GROUND_IMAGE_SIZE;
+			int x = position_.x;
+			int y = position_.y / GROUND_IMAGE_SIZE;
 
-			if (HitWithGround(x / GROUND_IMAGE_SIZE, y))
+			if (GetMapState(x / GROUND_IMAGE_SIZE, y))
 			{
 				isJump_ = false;
 				fallSpeed_ = 0;
-				GetPosition().y = (y + 1) * GROUND_IMAGE_SIZE;
+				position_.y = (y + 1) * GROUND_IMAGE_SIZE;
 			}
-			else if (HitWithGround((x + 31) / GROUND_IMAGE_SIZE, y))
+			else if (GetMapState((x + 31) / GROUND_IMAGE_SIZE, y))
 			{
 				isJump_ = false;
 				fallSpeed_ = 0;
-				GetPosition().y = (y + 1) * GROUND_IMAGE_SIZE;
+				position_.y = (y + 1) * GROUND_IMAGE_SIZE;
 			}
 		}
 		else
 		{
 			//落下中のアタリ
-			int x = GetPosition().x;
-			int y = (GetPosition().y + 31) / GROUND_IMAGE_SIZE;
+			int x = position_.x;
+			int y = (position_.y + 31) / GROUND_IMAGE_SIZE;
 
-			if (HitWithGround(x / GROUND_IMAGE_SIZE, y))
+			if (GetMapState(x / GROUND_IMAGE_SIZE, y))
 			{
 				isJump_ = false;
 				fallSpeed_ = 0;
-				GetPosition().y = (y - 1) * GROUND_IMAGE_SIZE;
+				position_.y = (y - 1) * GROUND_IMAGE_SIZE;
 			}
-			else if (HitWithGround((x + 31) / GROUND_IMAGE_SIZE, y))
+			else if (GetMapState((x + 31) / GROUND_IMAGE_SIZE, y))
 			{
 				isJump_ = false;
 				fallSpeed_ = 0;
-				GetPosition().y = (y - 1) * GROUND_IMAGE_SIZE;
+				position_.y = (y - 1) * GROUND_IMAGE_SIZE;
 			}
 		}
 	}
 	//着地してるとき
 	else
 	{
-		int x = GetPosition().x;
-		int y = (GetPosition().y + 32) / GROUND_IMAGE_SIZE;
+		int x = position_.x;
+		int y = (position_.y + 32) / GROUND_IMAGE_SIZE;
 		//ここのif文が分かれていたのでバグってた（左右どちらかが着いていなければ浮いてる判定になっていたから）
 		//左右どちらも着地していなければ浮いてる判定になる
-		if (!HitWithGround(x / GROUND_IMAGE_SIZE, y) && !HitWithGround((x + 31) / GROUND_IMAGE_SIZE, y))
+		if (!GetMapState(x / GROUND_IMAGE_SIZE, y) && !GetMapState((x + 31) / GROUND_IMAGE_SIZE, y))
 		{
 			isJump_ = true;
 		}
@@ -135,23 +135,25 @@ void Player::Move(float dir)
 	position_.x += moveVector_.x;
 	//横の判定
 	{
-		int x = GetPosition().x;
-		int y = GetPosition().y;
-		if (HitWithGround((x + 31) / GROUND_IMAGE_SIZE, y / GROUND_IMAGE_SIZE))
+		int x = position_.x;
+		int y = position_.y;
+		//上の左右角
+		if (GetMapState((x + 31) / GROUND_IMAGE_SIZE, y / GROUND_IMAGE_SIZE))
 		{
-			GetPosition().x = x / GROUND_IMAGE_SIZE * GROUND_IMAGE_SIZE;
+			position_.x = x / GROUND_IMAGE_SIZE * GROUND_IMAGE_SIZE;
 		}
-		else if (HitWithGround(x / GROUND_IMAGE_SIZE, y / GROUND_IMAGE_SIZE))
+		else if (GetMapState(x / GROUND_IMAGE_SIZE, y / GROUND_IMAGE_SIZE))
 		{
-			GetPosition().x = (x / GROUND_IMAGE_SIZE + 1) * GROUND_IMAGE_SIZE;
+			position_.x = (x / GROUND_IMAGE_SIZE + 1) * GROUND_IMAGE_SIZE;
 		}
-		else if (HitWithGround((x + 31) / GROUND_IMAGE_SIZE, (y + 31) / GROUND_IMAGE_SIZE))
+		//下の左右角
+		else if (GetMapState((x + 31) / GROUND_IMAGE_SIZE, (y + 31) / GROUND_IMAGE_SIZE))
 		{
-			GetPosition().x = x / GROUND_IMAGE_SIZE * GROUND_IMAGE_SIZE;
+			position_.x = x / GROUND_IMAGE_SIZE * GROUND_IMAGE_SIZE;
 		}
-		else if (HitWithGround(x / GROUND_IMAGE_SIZE, (y + 31) / GROUND_IMAGE_SIZE))
+		else if (GetMapState(x / GROUND_IMAGE_SIZE, (y + 31) / GROUND_IMAGE_SIZE))
 		{
-			GetPosition().x = (x / GROUND_IMAGE_SIZE + 1) * GROUND_IMAGE_SIZE;
+			position_.x = (x / GROUND_IMAGE_SIZE + 1) * GROUND_IMAGE_SIZE;
 		}
 	}
 }

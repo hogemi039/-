@@ -1,6 +1,6 @@
 /**
 * @file   Map.hpp
-* @brief  マップの読み込み、
+* @brief  マップ
 * @auther 伊藤 広樹
 * @date   2019/10/14
 */
@@ -45,7 +45,7 @@ namespace
 		}
 	}
 
-	bool HitWithGround(int x, int y)
+	bool GetMapState(int x, int y)
 	{
 		if (map[y][x] == 1)
 		{

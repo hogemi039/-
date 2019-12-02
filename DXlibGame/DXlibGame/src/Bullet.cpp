@@ -21,7 +21,7 @@ Bullet::Bullet(const Vector2 position, const float dir)
 /**
 * @brief 座標を返すゲッター
 */
-Vector2& Bullet::GetPosition()
+Vector2 Bullet::GetPosition()
 {
 	return position_;
 }

@@ -35,7 +35,7 @@ public:
 	float fallSpeed_{};
 	float playerDir_{};
 	bool isJump_{};
-	Vector2& GetPosition();
+	Vector2 GetPosition();
 	void Init();
 	void Render();
 	void Update();

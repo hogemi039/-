@@ -17,7 +17,7 @@ private:
 	Vector2 moveVector_{};
 	bool active{};
 public:
-	Vector2& GetPosition();
+	Vector2 GetPosition();
 	void Move();
 	void Render();
 	void Update();
