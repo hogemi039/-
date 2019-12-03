@@ -28,7 +28,7 @@ void Enemy::SetPosition(Vector2 position)
 
 void Enemy::Fall()
 {
-	//if (isJump_)
+	if (isJump_)
 	{
 		fallSpeed_ += FALLACCELERATION * Time::deltaTime;
 		if (fallSpeed_ > FALLSPEEDLIMIT)
@@ -36,12 +36,66 @@ void Enemy::Fall()
 			fallSpeed_ = FALLSPEEDLIMIT;
 		}
 	}
-	//else
-	//{
-	//	fallSpeed_ = 0.f;
-	//}
+	else
+	{
+		fallSpeed_ = 0.f;
+	}
 	moveVector_.y += fallSpeed_;
 	position_.y += moveVector_.y;
+
+	//ÉWÉÉÉìÉvíÜ
+	if (isJump_)
+	{
+		//è„è∏íÜ
+		if (fallSpeed_ < 0)
+		{
+			int x = position_.x;
+			int y = position_.y;
+			//è„ÇÃç∂âEÇå©ÇÈ
+			if (GetMapState(x / GROUND_IMAGE_SIZE, y))
+			{
+				isJump_ = false;
+				fallSpeed_ = 0;
+				position_.y = (y + 1) * GROUND_IMAGE_SIZE;
+			}
+			else if (GetMapState((x + 31) / GROUND_IMAGE_SIZE, y))
+			{
+				isJump_ = false;
+				fallSpeed_ = 0;
+				position_.y = (y + 1) * GROUND_IMAGE_SIZE;
+			}
+		}
+		//óéâ∫íÜ
+		else
+		{
+			int x = position_.x;
+			int y = (position_.y + 31) / GROUND_IMAGE_SIZE;
+			///ìríÜÅ`Å`Å`Å`Å`Å`Å`Å`Å`Å`Å`Å`Å`Å`Å`Å`Å`Å`Å`Å`Å`Å`Å`Å`Å`Å`
+			if (GetMapState(x / GROUND_IMAGE_SIZE, y))
+			{
+				isJump_ = false;
+				fallSpeed_ = 0;
+				position_.y = (y - 1) * GROUND_IMAGE_SIZE;
+			}
+			else if (GetMapState((x + 31) / GROUND_IMAGE_SIZE, y))
+			{
+				isJump_ = false;
+				fallSpeed_ = 0;
+				position_.y = (y - 1) * GROUND_IMAGE_SIZE;
+			}
+		}
+	}
+	//íÖíníÜ
+	else
+	{
+		int x = position_.x;
+		int y = (position_.y + 32) / GROUND_IMAGE_SIZE;
+		if (!GetMapState(x, y) && !GetMapState((x + 31) / GROUND_IMAGE_SIZE, y))
+		{
+			isJump_ = true;
+		}
+
+	}
 }
 
 void Enemy::Move()
