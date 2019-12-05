@@ -127,6 +127,7 @@
       <ConformanceMode>true</ConformanceMode>
       <AdditionalIncludeDirectories>C:\DxLib_VC\プロジェクトに追加すべきファイル_VC用</AdditionalIncludeDirectories>
       <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
+      <LanguageStandard>stdcpp17</LanguageStandard>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
@@ -147,6 +148,7 @@
       <ConformanceMode>true</ConformanceMode>
       <AdditionalIncludeDirectories>C:\DxLib_VC\プロジェクトに追加すべきファイル_VC用</AdditionalIncludeDirectories>
       <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
+      <LanguageStandard>stdcpp17</LanguageStandard>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
@@ -162,19 +164,25 @@
     <ClCompile Include="src\Enemy.cpp" />
     <ClCompile Include="src\Input.cpp" />
     <ClCompile Include="src\Main.cpp" />
+    <ClCompile Include="src\MapManager.cpp" />
     <ClCompile Include="src\Player.cpp" />
+    <ClCompile Include="src\tinyxml2.cpp" />
     <ClCompile Include="src\Vector2.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\Bullet.hpp" />
     <ClInclude Include="src\BulletManager.hpp" />
+    <ClInclude Include="src\Collider.hpp" />
+    <ClInclude Include="src\Collision.hpp" />
     <ClInclude Include="src\Enemy.hpp" />
     <ClInclude Include="src\Input.hpp" />
     <ClInclude Include="src\Map.hpp" />
+    <ClInclude Include="src\MapManager.hpp" />
     <ClInclude Include="src\Object.hpp" />
     <ClInclude Include="src\Player.hpp" />
     <ClInclude Include="src\Singleton.hpp" />
     <ClInclude Include="src\TImer.hpp" />
+    <ClInclude Include="src\tinyxml2.h" />
     <ClInclude Include="src\Vector2.hpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

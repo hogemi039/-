@@ -13,7 +13,7 @@ Enemy::Enemy()
 	position_ = Vector2(150.f, 0.f);
 	moveVector_ = Vector2(0.f, 0.f);
 	fallSpeed_ = 0.f;
-	handle_ = DxLib::LoadGraph("resource/purun.png");
+	handle_ = DxLib::LoadGraph("resource/image/purun.png");
 }
 
 Vector2 Enemy::GetPosition()
@@ -94,7 +94,6 @@ void Enemy::Fall()
 		{
 			isJump_ = true;
 		}
-
 	}
 }
 

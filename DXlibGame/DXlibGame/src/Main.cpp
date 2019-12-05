@@ -15,10 +15,10 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine
 	DxLib::SetGraphMode(1280, 720, 32);
 	if (DxLib::DxLib_Init() == -1) { return -1; }
 	Player *player_ = new Player();
-	Enemy *Enemy_ = new Enemy();
+	Enemy *enemy_ = new Enemy();
 	player_->Init();
 	Time::Init();
-	DxLib::LoadDivGraph("resource/sheet.png", 70, 10, 7, 32, 32, maphandle);
+	MapInit();
 	DxLib::SetDrawScreen(DX_SCREEN_BACK);
 	//ESCキーを押すか, 画面を閉じたらループを抜ける
 	while (DxLib::ProcessMessage() == 0 && !Input::GetInstance().GetKeyDown(KEY_INPUT_ESCAPE))
@@ -26,14 +26,11 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine
 		DxLib::ClearDrawScreen();
 		Input::GetInstance().Update();
 		Time::Update();
-		player_->Update();
-
-		Enemy_->Update();
-		
 		DrawMap();
-
+		player_->Update();
+		enemy_->Update();
 		player_->Render();
-		Enemy_->Render();
+		enemy_->Render();
 
 		DxLib::ScreenFlip();
 	}

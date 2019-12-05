@@ -12,7 +12,7 @@
 Player::Player()
 {
 	bulletmanager = new BulletManager();
-	handle_ = DxLib::LoadGraph("resource/purun.png");
+	handle_ = DxLib::LoadGraph("resource/image/purun.png");
 	playerDir_ = Right;
 }
 

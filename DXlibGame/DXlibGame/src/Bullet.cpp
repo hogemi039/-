@@ -13,7 +13,7 @@
 */
 Bullet::Bullet(const Vector2 position, const float dir)
 {
-	handle_ = DxLib::LoadGraph("resource/Bullet.png");
+	handle_ = DxLib::LoadGraph("resource/image/Bullet.png");
 	this->position_ = position;
 	this->moveVector_ = Vector2(dir, 0);
 }
