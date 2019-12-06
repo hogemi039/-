@@ -62,7 +62,7 @@ void MapManager::ReadMap()
 		//エディター上の数値にfirstGidを引けば０から扱える
 
 		//エラーの原因候補１-----------------------------
-		mapList.push_back(atoi(start)/* - firstGid*/);
+		mapList.push_back(atoi(start) - firstGid);
 		//--------------------------------------------
 
 		//カンマがなかった（最後）なら抜ける
@@ -87,6 +87,11 @@ int MapManager::GetMapHeight()
 
 int MapManager::GetChipNum(int x, int y)
 {
+	//マップ下にはみ出ていたら
+	if (y >= mapHeight)
+	{
+		return -1;
+	}
 	//該当するマップの情報を返す
 	//1次元配列でも
 	//Y * マップの横幅 + X
