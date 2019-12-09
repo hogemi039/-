@@ -16,6 +16,7 @@ Bullet::Bullet(const Vector2 position, const float dir)
 	handle_ = DxLib::LoadGraph("resource/image/Bullet.png");
 	this->position_ = position;
 	this->moveVector_ = Vector2(dir, 0);
+	this->moveVector_.Normalize();
 }
 
 /**
@@ -39,7 +40,12 @@ void Bullet::Move()
 */
 void Bullet::Render()
 {
-	DxLib::DrawGraph(static_cast<int>(position_.x), static_cast<int>(position_.y), handle_, true);
+	DxLib::DrawRotaGraph(static_cast<int>(position_.x), static_cast<int>(position_.y)   //座標
+		, 1                                                                             //拡大率
+		, 0																			    //回転
+		, handle_                                                                       //画像データ
+		, true                                                                          //透明度を有効にするか
+		, (moveVector_.x == -1)? TRUE : FALSE);                                         //左右判定を有効にするか
 }
 
 /**
