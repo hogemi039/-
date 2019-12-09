@@ -74,12 +74,6 @@
     <ClInclude Include="src\Enemy.hpp">
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
-    <ClInclude Include="src\Collider.hpp">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
-    <ClInclude Include="src\Collision.hpp">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
     <ClInclude Include="src\MapManager.hpp">
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>

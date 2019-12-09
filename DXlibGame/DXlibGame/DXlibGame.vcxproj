@@ -172,8 +172,6 @@
   <ItemGroup>
     <ClInclude Include="src\Bullet.hpp" />
     <ClInclude Include="src\BulletManager.hpp" />
-    <ClInclude Include="src\Collider.hpp" />
-    <ClInclude Include="src\Collision.hpp" />
     <ClInclude Include="src\Enemy.hpp" />
     <ClInclude Include="src\Input.hpp" />
     <ClInclude Include="src\Map.hpp" />
