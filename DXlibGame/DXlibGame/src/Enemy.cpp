@@ -90,7 +90,7 @@ void Enemy::Fall()
 	{
 		int x = position_.x;
 		int y = (position_.y + 32) / GROUND_IMAGE_SIZE;
-		if (!GetMapState(x, y) && !GetMapState((x + 31) / GROUND_IMAGE_SIZE, y))
+		if (!GetMapState(x / GROUND_IMAGE_SIZE, y) && !GetMapState((x + 31) / GROUND_IMAGE_SIZE, y))
 		{
 			isJump_ = true;
 		}
@@ -99,7 +99,7 @@ void Enemy::Fall()
 
 void Enemy::Move()
 {
-	moveVector_.x += 0.5f;
+	moveVector_.x += 1.f;
 	position_.x += moveVector_.x;
 	//‰¡‚ÌƒAƒ^ƒŠ”»’è
 	{

@@ -15,7 +15,7 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine
 	DxLib::SetGraphMode(1280, 720, 32);
 	if (DxLib::DxLib_Init() == -1) { return -1; }
 	Player *player_ = new Player();
-	//Enemy *enemy_ = new Enemy();
+	Enemy *enemy_ = new Enemy();
 	player_->Init();
 	Time::Init();
 	MapInit();
@@ -28,9 +28,9 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine
 		Time::Update();
 		DrawMap();
 		player_->Update();
-		//enemy_->Update();
+		enemy_->Update();
 		player_->Render();
-		//enemy_->Render();
+		enemy_->Render();
 
 		DxLib::ScreenFlip();
 	}
