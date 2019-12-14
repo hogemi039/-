@@ -14,10 +14,26 @@ class Bullet : public Object
 {
 private:
 	const float SPEED{ 10.0f };
+	Vector2 size = Vector2(16.0f, 16.0f);
 	Vector2 moveVector_{};
-	bool active{};
+	bool active_{};
 public:
-	Vector2 GetPosition();
+	Vector2 GetPosition()
+	{
+		return position_;
+	}
+	Vector2 GetSize()
+	{
+		return size;
+	}
+	bool GetActive()
+	{
+		return active_;
+	}
+	void SetActive(bool active)
+	{
+		active_ = active;
+	}
 	void Move();
 	void Render();
 	void Update();

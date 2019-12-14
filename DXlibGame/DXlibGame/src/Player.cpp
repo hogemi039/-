@@ -11,14 +11,14 @@
 */
 Player::Player()
 {
-	bulletmanager = new BulletManager();
+	bulletmanager_ = new BulletManager();
 	handle_ = DxLib::LoadGraph("resource/image/purun.png");
 	playerDir_ = Right;
 }
 
 Player::~Player()
 {
-	delete bulletmanager; 
+	delete bulletmanager_; 
 }
 
 /**
@@ -27,14 +27,6 @@ Player::~Player()
 void Player::Init()
 {
 	position_ = Vector2(0.0f, 0.0f);
-}
-
-/**
-* @brief 座標を返すゲッター
-*/
-Vector2 Player::GetPosition()
-{
-	return position_;
 }
 
 /**
@@ -164,7 +156,7 @@ void Player::Move(float dir)
 void Player::Render()
 {
 	DxLib::DrawGraph(static_cast<int>(position_.x), static_cast<int>(position_.y), handle_, true);
-	bulletmanager->Render();
+	bulletmanager_->Render();
 }
 
 /**
@@ -187,7 +179,12 @@ void Player::Update()
 	}
 	if (Input::GetInstance().GetKeyDown(KEY_INPUT_B))
 	{
-		bulletmanager->Shot(position_, playerDir_);
+		bulletmanager_->Shot(position_, playerDir_);
 	}
-	bulletmanager->Update();
+	bulletmanager_->Update();
+	bulletmanager_->SetTargetPosition(targetPosition_);
+	bulletmanager_->SetTargetSize(targetSize_);
+	auto pos = bulletmanager_->GetTargetPosition();
+	auto size = bulletmanager_->GetTargetSize();
+	isBulletCollision_ = bulletmanager_->Collision(pos, size);
 }

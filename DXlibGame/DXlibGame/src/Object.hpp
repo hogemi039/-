@@ -8,8 +8,6 @@
 #define OBJECT_HPP
 #include "Vector2.hpp"
 
-const float PI = 3.14159265359f;
-
 class Object
 {
 protected:

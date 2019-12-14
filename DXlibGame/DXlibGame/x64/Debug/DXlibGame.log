@@ -1,19 +1,18 @@
 ﻿  Enemy.cpp
-c:\users\user\documents\dxlibgame\dxlibgame\dxlibgame\src\enemy.cpp(52): warning C4244: '初期化中': 'float' から 'int' への変換です。データが失われる可能性があります。
-c:\users\user\documents\dxlibgame\dxlibgame\dxlibgame\src\enemy.cpp(53): warning C4244: '初期化中': 'float' から 'int' への変換です。データが失われる可能性があります。
-c:\users\user\documents\dxlibgame\dxlibgame\dxlibgame\src\enemy.cpp(59): warning C4244: '=': 'int' から 'float' への変換です。データが失われる可能性があります。
-c:\users\user\documents\dxlibgame\dxlibgame\dxlibgame\src\enemy.cpp(65): warning C4244: '=': 'int' から 'float' への変換です。データが失われる可能性があります。
-c:\users\user\documents\dxlibgame\dxlibgame\dxlibgame\src\enemy.cpp(71): warning C4244: '初期化中': 'float' から 'int' への変換です。データが失われる可能性があります。
-c:\users\user\documents\dxlibgame\dxlibgame\dxlibgame\src\enemy.cpp(72): warning C4244: '初期化中': 'float' から 'int' への変換です。データが失われる可能性があります。
-c:\users\user\documents\dxlibgame\dxlibgame\dxlibgame\src\enemy.cpp(78): warning C4244: '=': 'int' から 'float' への変換です。データが失われる可能性があります。
-c:\users\user\documents\dxlibgame\dxlibgame\dxlibgame\src\enemy.cpp(84): warning C4244: '=': 'int' から 'float' への変換です。データが失われる可能性があります。
-c:\users\user\documents\dxlibgame\dxlibgame\dxlibgame\src\enemy.cpp(91): warning C4244: '初期化中': 'float' から 'int' への変換です。データが失われる可能性があります。
-c:\users\user\documents\dxlibgame\dxlibgame\dxlibgame\src\enemy.cpp(92): warning C4244: '初期化中': 'float' から 'int' への変換です。データが失われる可能性があります。
-c:\users\user\documents\dxlibgame\dxlibgame\dxlibgame\src\enemy.cpp(106): warning C4244: '初期化中': 'float' から 'int' への変換です。データが失われる可能性があります。
-c:\users\user\documents\dxlibgame\dxlibgame\dxlibgame\src\enemy.cpp(107): warning C4244: '初期化中': 'float' から 'int' への変換です。データが失われる可能性があります。
+c:\users\user\documents\dxlibgame\dxlibgame\dxlibgame\src\enemy.cpp(44): warning C4244: '初期化中': 'float' から 'int' への変換です。データが失われる可能性があります。
+c:\users\user\documents\dxlibgame\dxlibgame\dxlibgame\src\enemy.cpp(45): warning C4244: '初期化中': 'float' から 'int' への変換です。データが失われる可能性があります。
+c:\users\user\documents\dxlibgame\dxlibgame\dxlibgame\src\enemy.cpp(51): warning C4244: '=': 'int' から 'float' への変換です。データが失われる可能性があります。
+c:\users\user\documents\dxlibgame\dxlibgame\dxlibgame\src\enemy.cpp(57): warning C4244: '=': 'int' から 'float' への変換です。データが失われる可能性があります。
+c:\users\user\documents\dxlibgame\dxlibgame\dxlibgame\src\enemy.cpp(63): warning C4244: '初期化中': 'float' から 'int' への変換です。データが失われる可能性があります。
+c:\users\user\documents\dxlibgame\dxlibgame\dxlibgame\src\enemy.cpp(64): warning C4244: '初期化中': 'float' から 'int' への変換です。データが失われる可能性があります。
+c:\users\user\documents\dxlibgame\dxlibgame\dxlibgame\src\enemy.cpp(69): warning C4244: '=': 'int' から 'float' への変換です。データが失われる可能性があります。
+c:\users\user\documents\dxlibgame\dxlibgame\dxlibgame\src\enemy.cpp(75): warning C4244: '=': 'int' から 'float' への変換です。データが失われる可能性があります。
+c:\users\user\documents\dxlibgame\dxlibgame\dxlibgame\src\enemy.cpp(82): warning C4244: '初期化中': 'float' から 'int' への変換です。データが失われる可能性があります。
+c:\users\user\documents\dxlibgame\dxlibgame\dxlibgame\src\enemy.cpp(83): warning C4244: '初期化中': 'float' から 'int' への変換です。データが失われる可能性があります。
+c:\users\user\documents\dxlibgame\dxlibgame\dxlibgame\src\enemy.cpp(97): warning C4244: '初期化中': 'float' から 'int' への変換です。データが失われる可能性があります。
+c:\users\user\documents\dxlibgame\dxlibgame\dxlibgame\src\enemy.cpp(98): warning C4244: '初期化中': 'float' から 'int' への変換です。データが失われる可能性があります。
+c:\users\user\documents\dxlibgame\dxlibgame\dxlibgame\src\enemy.cpp(102): warning C4244: '=': 'int' から 'float' への変換です。データが失われる可能性があります。
+c:\users\user\documents\dxlibgame\dxlibgame\dxlibgame\src\enemy.cpp(106): warning C4244: '=': 'int' から 'float' への変換です。データが失われる可能性があります。
 c:\users\user\documents\dxlibgame\dxlibgame\dxlibgame\src\enemy.cpp(111): warning C4244: '=': 'int' から 'float' への変換です。データが失われる可能性があります。
 c:\users\user\documents\dxlibgame\dxlibgame\dxlibgame\src\enemy.cpp(115): warning C4244: '=': 'int' から 'float' への変換です。データが失われる可能性があります。
-c:\users\user\documents\dxlibgame\dxlibgame\dxlibgame\src\enemy.cpp(120): warning C4244: '=': 'int' から 'float' への変換です。データが失われる可能性があります。
-c:\users\user\documents\dxlibgame\dxlibgame\dxlibgame\src\enemy.cpp(124): warning C4244: '=': 'int' から 'float' への変換です。データが失われる可能性があります。
-     ライブラリ C:\Users\user\Documents\DxLibGame\DXlibGame\x64\Debug\DXlibGame.lib とオブジェクト C:\Users\user\Documents\DxLibGame\DXlibGame\x64\Debug\DXlibGame.exp を作成中
   DXlibGame.vcxproj -> C:\Users\user\Documents\DxLibGame\DXlibGame\x64\Debug\DXlibGame.exe

@@ -26,16 +26,43 @@ private:
 	const float FALLSPEEDLIMIT{ 20.0f };
 	const float SPEED{ 3.0f };
 	float jumpForce_{ -7.5f };
-	BulletManager *bulletmanager{};
+	BulletManager *bulletmanager_{};
+	Vector2 targetPosition_{};
+	Vector2 targetSize_{};
+	bool isBulletCollision_{};
 	void Fall();
 	void Jump();
 	void Move(float);
+
 public:
 	Vector2 moveVector_{};
 	float fallSpeed_{};
 	float playerDir_{};
 	bool isJump_{};
-	Vector2 GetPosition();
+	Vector2 GetPosition()
+	{
+		return position_;
+	}
+	Vector2 GetTargetPosition()
+	{
+		return targetPosition_;
+	}
+	Vector2 GetTargetSize()
+	{
+		return targetSize_;
+	}
+	bool GetCollisionFlag()
+	{
+		return isBulletCollision_;
+	}
+	void SetTargetPosition(Vector2 targetpos)
+	{
+		targetPosition_ = targetpos;
+	}
+	void SetTargetSize(Vector2 targetsize)
+	{
+		targetSize_ = targetsize;
+	}
 	void Init();
 	void Render();
 	void Update();

@@ -29,6 +29,10 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine
 		DrawMap();
 		player_->Update();
 		enemy_->Update();
+		//当たり判定のため、標的の座標と当たり判定のサイズを取る
+		player_->SetTargetPosition(enemy_->GetPosition());
+		player_->SetTargetSize(enemy_->GetSize());
+		enemy_->SetCollisionFlag(player_->GetCollisionFlag());
 		player_->Render();
 		enemy_->Render();
 

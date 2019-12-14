@@ -87,8 +87,8 @@ int MapManager::GetMapHeight()
 
 int MapManager::GetChipNum(int x, int y)
 {
-	//マップ下にはみ出ていたら
-	if (y >= mapHeight)
+	//マップ下か右にはみ出ていたら
+	if (y >= mapHeight || x >= mapWidth)
 	{
 		return -1;
 	}

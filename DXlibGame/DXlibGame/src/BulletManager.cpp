@@ -14,10 +14,53 @@
 */
 void BulletManager::Shot(const Vector2 position, const float dir)
 {
-	if(bullets_.size() < MAX_BULLET)
+	if (bullets_.size() < MAX_BULLET)
 	{
 		bullets_.push_back(new Bullet(position, dir));
 	}
+}
+
+bool BulletManager::Collision(Vector2 position, Vector2 size)
+{
+	for (size_t i = 0; i < bullets_.size(); i++)
+	{
+		auto temp = bullets_.at(i);
+		if (!temp->GetActive())
+		{
+			continue;
+		}
+		auto bulletPos = temp->GetPosition();
+		auto bulletSize = temp->GetSize();
+		if ((position.x <= bulletPos.x && bulletPos.x <= (position.x + size.x)) &&
+			(position.y <= bulletPos.y && bulletPos.y <= (position.y + size.y)))
+		{
+			temp->SetActive(false);
+			bullets_.erase(bullets_.begin() + i);
+			return true;
+		}
+		else if ((position.x <= (bulletPos.x + bulletSize.x) && (bulletPos.x + bulletSize.x) <= (position.x + size.x)) &&
+			(position.y <= bulletPos.y && bulletPos.y <= (position.y + size.y)))
+		{
+			temp->SetActive(false);
+			bullets_.erase(bullets_.begin() + i);
+			return true;
+		}
+		else if ((position.x <= bulletPos.x && bulletPos.x <= (position.x + size.x)) &&
+			(position.y <= (bulletPos.y + bulletSize.y) && (bulletPos.y + bulletSize.y) <= (position.y + size.y)))
+		{
+			temp->SetActive(false);
+			bullets_.erase(bullets_.begin() + i);
+			return true;
+		}
+		else if ((position.x <= (bulletPos.x + bulletSize.x) && (bulletPos.x + bulletSize.x) <= (position.x + size.x)) &&
+			(position.y <= (bulletPos.y + bulletSize.y) && (bulletPos.y + bulletSize.y) <= (position.y + size.y)))
+		{
+			temp->SetActive(false);
+			bullets_.erase(bullets_.begin() + i);
+			return true;
+		}
+	}
+	return false;
 }
 
 /**
@@ -28,10 +71,11 @@ void BulletManager::Update()
 	//Œã‚ë‚©‚çfor‚ð‰ñ‚·‚Ì‚ÍAÁ‚µ‚½‚ ‚Æ”z—ñ‚Í‚È‚­‚È‚Á‚½•”•ª‚ð‹l‚ß‚é‚Ì‚Å’²‚×‚½‚¢—v‘f‚Ì+1‚ðŒ©‚Ä‚µ‚Ü‚¤B
 	//Œã‚ë‚©‚ç’²‚×‚ê‚ÎA–³‚­‚È‚Á‚½•”•ª‚ð‹l‚ß‚Ä‚à’²‚×‚½‚¢—v‘f‚É‰e‹¿‚ª‚È‚¢‚½‚ßB
 	bullets_.erase(std::remove_if(bullets_.begin(), bullets_.end(),
-		[](Bullet* bullet) {
+		[](Bullet* bullet)
+		{
 			bullet->Update();
 			auto bulletPos = bullet->GetPosition();
-			return bulletPos.x > 500 || bulletPos.x < 0;
+			return bulletPos.x > 1280 || bulletPos.x < 0;
 		}),
 		bullets_.end());
 	/*for (int i = bullets.size() - 1; i >= 0; i--)

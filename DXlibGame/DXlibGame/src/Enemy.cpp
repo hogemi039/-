@@ -13,17 +13,9 @@ Enemy::Enemy()
 	position_ = Vector2(150.f, 0.f);
 	moveVector_ = Vector2(0.f, 0.f);
 	fallSpeed_ = 0.f;
+	isCollision_ = false;
+	active_ = true;
 	handle_ = DxLib::LoadGraph("resource/image/purun.png");
-}
-
-Vector2 Enemy::GetPosition()
-{
-	return position_;
-}
-
-void Enemy::SetPosition(Vector2 position)
-{
-	this->position_ = position;
 }
 
 void Enemy::Fall()
@@ -70,7 +62,6 @@ void Enemy::Fall()
 		{
 			int x = position_.x;
 			int y = (position_.y + 31) / GROUND_IMAGE_SIZE;
-			///ìríÜÅ`Å`Å`Å`Å`Å`Å`Å`Å`Å`Å`Å`Å`Å`Å`Å`Å`Å`Å`Å`Å`Å`Å`Å`Å`Å`
 			if (GetMapState(x / GROUND_IMAGE_SIZE, y))
 			{
 				isJump_ = false;
@@ -128,12 +119,28 @@ void Enemy::Move()
 
 void Enemy::Render()
 {
+	if (active_ == false)
+	{
+		return;
+	}
 	DxLib::DrawGraph(static_cast<int>(position_.x), static_cast<int>(position_.y), handle_, true);
 }
 
 void Enemy::Update()
 {
-	moveVector_ = Vector2(0.f, 0.f);
-	Fall();
-	Move();
+	if (isCollision_ == true)
+	{
+		Destroy();
+	}
+	if (active_ == true)
+	{
+		moveVector_ = Vector2(0.f, 0.f);
+		Fall();
+		Move();
+	}
+}
+
+void Enemy::Destroy()
+{
+	active_ = false;
 }

@@ -14,17 +14,10 @@
 Bullet::Bullet(const Vector2 position, const float dir)
 {
 	handle_ = DxLib::LoadGraph("resource/image/Bullet.png");
-	this->position_ = position;
-	this->moveVector_ = Vector2(dir, 0);
-	this->moveVector_.Normalize();
-}
-
-/**
-* @brief 座標を返すゲッター
-*/
-Vector2 Bullet::GetPosition()
-{
-	return position_;
+	position_ = position;
+	moveVector_ = Vector2(dir, 0);
+	moveVector_.Normalize();
+	active_ = true;
 }
 
 /**
