@@ -30,10 +30,10 @@ private:
 	Vector2 targetPosition_{};
 	Vector2 targetSize_{};
 	bool isBulletCollision_{};
+	bool isTargetActive_{};
 	void Fall();
 	void Jump();
 	void Move(float);
-
 public:
 	Vector2 moveVector_{};
 	float fallSpeed_{};
@@ -62,6 +62,10 @@ public:
 	void SetTargetSize(Vector2 targetsize)
 	{
 		targetSize_ = targetsize;
+	}
+	void SetTargetActive(bool target)
+	{
+		isTargetActive_ = target;
 	}
 	void Init();
 	void Render();

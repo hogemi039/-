@@ -20,7 +20,7 @@ void BulletManager::Shot(const Vector2 position, const float dir)
 	}
 }
 
-bool BulletManager::Collision(Vector2 position, Vector2 size)
+bool BulletManager::Collision(Vector2 position = Vector2(0.f,0.f), Vector2 size = Vector2(0.f, 0.f))
 {
 	for (size_t i = 0; i < bullets_.size(); i++)
 	{

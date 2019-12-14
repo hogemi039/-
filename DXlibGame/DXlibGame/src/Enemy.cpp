@@ -50,7 +50,7 @@ void Enemy::Fall()
 				fallSpeed_ = 0;
 				position_.y = (y + 1) * GROUND_IMAGE_SIZE;
 			}
-			else if (GetMapState((x + 31) / GROUND_IMAGE_SIZE, y))
+			else if (GetMapState((x + (GROUND_IMAGE_SIZE - 1)) / GROUND_IMAGE_SIZE, y))
 			{
 				isJump_ = false;
 				fallSpeed_ = 0;
@@ -61,14 +61,14 @@ void Enemy::Fall()
 		else
 		{
 			int x = position_.x;
-			int y = (position_.y + 31) / GROUND_IMAGE_SIZE;
+			int y = (position_.y + (GROUND_IMAGE_SIZE - 1)) / GROUND_IMAGE_SIZE;
 			if (GetMapState(x / GROUND_IMAGE_SIZE, y))
 			{
 				isJump_ = false;
 				fallSpeed_ = 0;
 				position_.y = (y - 1) * GROUND_IMAGE_SIZE;
 			}
-			else if (GetMapState((x + 31) / GROUND_IMAGE_SIZE, y))
+			else if (GetMapState((x + (GROUND_IMAGE_SIZE - 1)) / GROUND_IMAGE_SIZE, y))
 			{
 				isJump_ = false;
 				fallSpeed_ = 0;
@@ -81,7 +81,7 @@ void Enemy::Fall()
 	{
 		int x = position_.x;
 		int y = (position_.y + 32) / GROUND_IMAGE_SIZE;
-		if (!GetMapState(x / GROUND_IMAGE_SIZE, y) && !GetMapState((x + 31) / GROUND_IMAGE_SIZE, y))
+		if (!GetMapState(x / GROUND_IMAGE_SIZE, y) && !GetMapState((x + (GROUND_IMAGE_SIZE - 1)) / GROUND_IMAGE_SIZE, y))
 		{
 			isJump_ = true;
 		}
@@ -101,16 +101,16 @@ void Enemy::Move()
 		{
 			position_.x = (x / GROUND_IMAGE_SIZE + 1) * GROUND_IMAGE_SIZE;
 		}
-		else if(GetMapState((x + 31) / GROUND_IMAGE_SIZE, y / GROUND_IMAGE_SIZE))
+		else if(GetMapState((x + (GROUND_IMAGE_SIZE - 1)) / GROUND_IMAGE_SIZE, y / GROUND_IMAGE_SIZE))
 		{
 			position_.x = x / GROUND_IMAGE_SIZE * GROUND_IMAGE_SIZE;
 		}
 		//‰º
-		else if (GetMapState(x / GROUND_IMAGE_SIZE, (y + 31) / GROUND_IMAGE_SIZE))
+		else if (GetMapState(x / GROUND_IMAGE_SIZE, (y + (GROUND_IMAGE_SIZE - 1)) / GROUND_IMAGE_SIZE))
 		{
 			position_.x = (x / GROUND_IMAGE_SIZE + 1) * GROUND_IMAGE_SIZE;
 		}
-		else if (GetMapState((x + 31) / GROUND_IMAGE_SIZE, (y + 31) / GROUND_IMAGE_SIZE))
+		else if (GetMapState((x + (GROUND_IMAGE_SIZE - 1)) / GROUND_IMAGE_SIZE, (y + (GROUND_IMAGE_SIZE - 1)) / GROUND_IMAGE_SIZE))
 		{
 			position_.x = x / GROUND_IMAGE_SIZE * GROUND_IMAGE_SIZE;
 		}

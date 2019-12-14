@@ -31,6 +31,14 @@ public:
 	{
 		return position_;
 	}
+	bool GetCollisionFlag()
+	{
+		return isCollision_;
+	}
+	bool GetActive()
+	{
+		return active_;
+	}
 	void SetPosition(Vector2 position)
 	{
 		this->position_ = position;

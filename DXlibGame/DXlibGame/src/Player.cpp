@@ -64,7 +64,7 @@ void Player::Fall()
 				fallSpeed_ = 0;
 				position_.y = (y + 1) * GROUND_IMAGE_SIZE;
 			}
-			else if (GetMapState((x + 31) / GROUND_IMAGE_SIZE, y))
+			else if (GetMapState((x + (GROUND_IMAGE_SIZE - 1)) / GROUND_IMAGE_SIZE, y))
 			{
 				isJump_ = false;
 				fallSpeed_ = 0;
@@ -75,7 +75,7 @@ void Player::Fall()
 		{
 			//落下中のアタリ
 			int x = position_.x;
-			int y = (position_.y + 31) / GROUND_IMAGE_SIZE;
+			int y = (position_.y + (GROUND_IMAGE_SIZE - 1)) / GROUND_IMAGE_SIZE;
 
 			if (GetMapState(x / GROUND_IMAGE_SIZE, y))
 			{
@@ -83,7 +83,7 @@ void Player::Fall()
 				fallSpeed_ = 0;
 				position_.y = (y - 1) * GROUND_IMAGE_SIZE;
 			}
-			else if (GetMapState((x + 31) / GROUND_IMAGE_SIZE, y))
+			else if (GetMapState((x + (GROUND_IMAGE_SIZE - 1)) / GROUND_IMAGE_SIZE, y))
 			{
 				isJump_ = false;
 				fallSpeed_ = 0;
@@ -98,7 +98,7 @@ void Player::Fall()
 		int y = (position_.y + 32) / GROUND_IMAGE_SIZE;
 		//ここのif文が分かれていたのでバグってた（左右どちらかが着いていなければ浮いてる判定になっていたから）
 		//左右どちらも着地していなければ浮いてる判定になる
-		if (!GetMapState(x / GROUND_IMAGE_SIZE, y) && !GetMapState((x + 31) / GROUND_IMAGE_SIZE, y))
+		if (!GetMapState(x / GROUND_IMAGE_SIZE, y) && !GetMapState((x + (GROUND_IMAGE_SIZE - 1)) / GROUND_IMAGE_SIZE, y))
 		{
 			isJump_ = true;
 		}
@@ -130,7 +130,7 @@ void Player::Move(float dir)
 		int x = position_.x;
 		int y = position_.y;
 		//上の左右角
-		if (GetMapState((x + 31) / GROUND_IMAGE_SIZE, y / GROUND_IMAGE_SIZE))
+		if (GetMapState((x + (GROUND_IMAGE_SIZE - 1)) / GROUND_IMAGE_SIZE, y / GROUND_IMAGE_SIZE))
 		{
 			position_.x = x / GROUND_IMAGE_SIZE * GROUND_IMAGE_SIZE;
 		}
@@ -139,11 +139,11 @@ void Player::Move(float dir)
 			position_.x = (x / GROUND_IMAGE_SIZE + 1) * GROUND_IMAGE_SIZE;
 		}
 		//下の左右角
-		else if (GetMapState((x + 31) / GROUND_IMAGE_SIZE, (y + 31) / GROUND_IMAGE_SIZE))
+		else if (GetMapState((x + (GROUND_IMAGE_SIZE - 1)) / GROUND_IMAGE_SIZE, (y + (GROUND_IMAGE_SIZE - 1)) / GROUND_IMAGE_SIZE))
 		{
 			position_.x = x / GROUND_IMAGE_SIZE * GROUND_IMAGE_SIZE;
 		}
-		else if (GetMapState(x / GROUND_IMAGE_SIZE, (y + 31) / GROUND_IMAGE_SIZE))
+		else if (GetMapState(x / GROUND_IMAGE_SIZE, (y + (GROUND_IMAGE_SIZE - 1)) / GROUND_IMAGE_SIZE))
 		{
 			position_.x = (x / GROUND_IMAGE_SIZE + 1) * GROUND_IMAGE_SIZE;
 		}
@@ -182,9 +182,16 @@ void Player::Update()
 		bulletmanager_->Shot(position_, playerDir_);
 	}
 	bulletmanager_->Update();
+	//敵の当たったflagがtrueの時は当たり判定は実行しない
+	if (isTargetActive_ == false)
+	{
+		return;
+	}
+	//敵の座標とサイズが入る
 	bulletmanager_->SetTargetPosition(targetPosition_);
 	bulletmanager_->SetTargetSize(targetSize_);
 	auto pos = bulletmanager_->GetTargetPosition();
 	auto size = bulletmanager_->GetTargetSize();
+	//弾と敵の当たり判定
 	isBulletCollision_ = bulletmanager_->Collision(pos, size);
 }
