@@ -182,7 +182,7 @@ void Player::Update()
 		bulletmanager_->Shot(position_, playerDir_);
 	}
 	bulletmanager_->Update();
-	//“G‚Ì“–‚½‚Á‚½flag‚ªtrue‚Ì‚Í“–‚½‚è”»’è‚ÍÀs‚µ‚È‚¢
+	//“G‚ª‘¶İ‚µ‚Ä‚¢‚È‚¢‚Æ‚«‚É“–‚½‚è”»’è‚ğ‚·‚é
 	if (isTargetActive_ == false)
 	{
 		return;
