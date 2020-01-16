@@ -14,6 +14,9 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine
 	//ウィンドウサイズを指定
 	DxLib::SetGraphMode(1280, 720, 32);
 	if (DxLib::DxLib_Init() == -1) { return -1; }
+
+	int backgroundImg = LoadGraph("resource/image/background.png");
+	
 	Player *player_ = new Player();
 	Enemy *enemy_ = new Enemy();
 	player_->Init();
@@ -24,6 +27,8 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine
 	while (DxLib::ProcessMessage() == 0 && !Input::GetInstance().GetKeyDown(KEY_INPUT_ESCAPE))
 	{
 		DxLib::ClearDrawScreen();
+		DxLib::DrawGraph(0, 0, backgroundImg, TRUE);
+
 		Input::GetInstance().Update();
 		Time::Update();
 		DrawMap();

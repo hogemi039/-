@@ -38,7 +38,7 @@ void Bullet::Render()
 		, 0																			    //回転
 		, handle_                                                                       //画像データ
 		, true                                                                          //透明度を有効にするか
-		, (moveVector_.x == -1)? TRUE : FALSE);                                         //左右判定を有効にするか
+		, (moveVector_.x < 0)? TRUE : FALSE);                                         //左右判定を有効にするか
 }
 
 /**

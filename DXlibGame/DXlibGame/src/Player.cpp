@@ -6,6 +6,9 @@
 */
 #include "Player.hpp"
 
+#define DEBUG
+
+
 /**
 * @brief コンストラクタ
 */
@@ -26,7 +29,7 @@ Player::~Player()
 */
 void Player::Init()
 {
-	position_ = Vector2(0.0f, 0.0f);
+	position_ = Vector2(16.0f, 0.0f);
 }
 
 /**
@@ -55,47 +58,47 @@ void Player::Fall()
 		if (fallSpeed_ < 0)
 		{
 			//上昇中のアタリ
-			int x = position_.x;
-			int y = position_.y / GROUND_IMAGE_SIZE;
+			int x = position_.x - GROUND_IMAGE_SIZE / 2;
+			int y = (position_.y - GROUND_IMAGE_SIZE / 2) / GROUND_IMAGE_SIZE;
 
 			if (GetMapState(x / GROUND_IMAGE_SIZE, y))
 			{
 				isJump_ = false;
 				fallSpeed_ = 0;
-				position_.y = (y + 1) * GROUND_IMAGE_SIZE;
+				position_.y = (y + 1) * GROUND_IMAGE_SIZE + GROUND_IMAGE_SIZE / 2;
 			}
 			else if (GetMapState((x + (GROUND_IMAGE_SIZE - 1)) / GROUND_IMAGE_SIZE, y))
 			{
 				isJump_ = false;
 				fallSpeed_ = 0;
-				position_.y = (y + 1) * GROUND_IMAGE_SIZE;
+				position_.y = (y + 1) * GROUND_IMAGE_SIZE + GROUND_IMAGE_SIZE / 2;
 			}
 		}
 		else
 		{
 			//落下中のアタリ
-			int x = position_.x;
-			int y = (position_.y + (GROUND_IMAGE_SIZE - 1)) / GROUND_IMAGE_SIZE;
+			int x = position_.x - GROUND_IMAGE_SIZE / 2;
+			int y = ((position_.y + (GROUND_IMAGE_SIZE - 1)) - GROUND_IMAGE_SIZE / 2) / GROUND_IMAGE_SIZE;
 
 			if (GetMapState(x / GROUND_IMAGE_SIZE, y))
 			{
 				isJump_ = false;
 				fallSpeed_ = 0;
-				position_.y = (y - 1) * GROUND_IMAGE_SIZE;
+				position_.y = (y - 1) * GROUND_IMAGE_SIZE + GROUND_IMAGE_SIZE / 2;
 			}
 			else if (GetMapState((x + (GROUND_IMAGE_SIZE - 1)) / GROUND_IMAGE_SIZE, y))
 			{
 				isJump_ = false;
 				fallSpeed_ = 0;
-				position_.y = (y - 1) * GROUND_IMAGE_SIZE;
+				position_.y = (y - 1) * GROUND_IMAGE_SIZE + GROUND_IMAGE_SIZE / 2;
 			}
 		}
 	}
 	//着地してるとき
 	else
 	{
-		int x = position_.x;
-		int y = (position_.y + 32) / GROUND_IMAGE_SIZE;
+		int x = position_.x - GROUND_IMAGE_SIZE / 2;
+		int y = ((position_.y + 32) - GROUND_IMAGE_SIZE / 2) / GROUND_IMAGE_SIZE;
 		//ここのif文が分かれていたのでバグってた（左右どちらかが着いていなければ浮いてる判定になっていたから）
 		//左右どちらも着地していなければ浮いてる判定になる
 		if (!GetMapState(x / GROUND_IMAGE_SIZE, y) && !GetMapState((x + (GROUND_IMAGE_SIZE - 1)) / GROUND_IMAGE_SIZE, y))
@@ -127,25 +130,29 @@ void Player::Move(float dir)
 	position_.x += moveVector_.x;
 	//横の判定
 	{
-		int x = position_.x;
-		int y = position_.y;
-		//上の左右角
+		int x = position_.x - GROUND_IMAGE_SIZE / 2;
+		int y = position_.y - GROUND_IMAGE_SIZE / 2;
+		//座標をサイズで割るとタイルの番号が出る
+		//画像の上の右角
 		if (GetMapState((x + (GROUND_IMAGE_SIZE - 1)) / GROUND_IMAGE_SIZE, y / GROUND_IMAGE_SIZE))
 		{
-			position_.x = x / GROUND_IMAGE_SIZE * GROUND_IMAGE_SIZE;
+			//画像のサイズを掛けると座標が出る
+			position_.x = x / GROUND_IMAGE_SIZE * GROUND_IMAGE_SIZE + GROUND_IMAGE_SIZE / 2;
 		}
-		else if (GetMapState(x / GROUND_IMAGE_SIZE, y / GROUND_IMAGE_SIZE))
-		{
-			position_.x = (x / GROUND_IMAGE_SIZE + 1) * GROUND_IMAGE_SIZE;
-		}
-		//下の左右角
+		//画像の下の右角
 		else if (GetMapState((x + (GROUND_IMAGE_SIZE - 1)) / GROUND_IMAGE_SIZE, (y + (GROUND_IMAGE_SIZE - 1)) / GROUND_IMAGE_SIZE))
 		{
-			position_.x = x / GROUND_IMAGE_SIZE * GROUND_IMAGE_SIZE;
+			position_.x = x / GROUND_IMAGE_SIZE * GROUND_IMAGE_SIZE + GROUND_IMAGE_SIZE / 2;
 		}
+		//画像の上の左角
+		else if (GetMapState(x / GROUND_IMAGE_SIZE, y / GROUND_IMAGE_SIZE))
+		{
+			position_.x = (x / GROUND_IMAGE_SIZE + 1) * GROUND_IMAGE_SIZE + GROUND_IMAGE_SIZE / 2;
+		}
+		//画像の下の左角
 		else if (GetMapState(x / GROUND_IMAGE_SIZE, (y + (GROUND_IMAGE_SIZE - 1)) / GROUND_IMAGE_SIZE))
 		{
-			position_.x = (x / GROUND_IMAGE_SIZE + 1) * GROUND_IMAGE_SIZE;
+			position_.x = (x / GROUND_IMAGE_SIZE + 1) * GROUND_IMAGE_SIZE + GROUND_IMAGE_SIZE / 2;
 		}
 	}
 }
@@ -155,8 +162,18 @@ void Player::Move(float dir)
 */
 void Player::Render()
 {
-	DxLib::DrawGraph(static_cast<int>(position_.x), static_cast<int>(position_.y), handle_, true);
+	DxLib::DrawRotaGraph(static_cast<int>(position_.x), static_cast<int>(position_.y)   //座標
+		, 1                                                                             //拡大率
+		, 0																			    //回転
+		, handle_                                                                       //画像データ
+		, true                                                                          //透明度を有効にするか
+		, (playerDir_ == DIR::Left) ? TRUE : FALSE);                                    //左右判定を有効にするか
 	bulletmanager_->Render();
+
+#ifdef DEBUG
+	DxLib::DrawCircle(position_.x, position_.y, 2, GetColor(255, 100, 255), 1);
+	DxLib::DrawBox(position_.x - 32 / 2, position_.y - 32 / 2, position_.x + 32 / 2, position_.y + 32 / 2, GetColor(255, 255, 255), 0);
+#endif
 }
 
 /**
@@ -187,11 +204,13 @@ void Player::Update()
 	{
 		return;
 	}
-	//敵の座標とサイズが入る
-	bulletmanager_->SetTargetPosition(targetPosition_);
-	bulletmanager_->SetTargetSize(targetSize_);
-	auto pos = bulletmanager_->GetTargetPosition();
-	auto size = bulletmanager_->GetTargetSize();
-	//弾と敵の当たり判定
-	isBulletCollision_ = bulletmanager_->Collision(pos, size);
+	{
+		//敵の座標とサイズが入る
+		bulletmanager_->SetTargetPosition(targetPosition_);
+		bulletmanager_->SetTargetSize(targetSize_);
+		auto pos = bulletmanager_->GetTargetPosition();
+		auto size = bulletmanager_->GetTargetSize();
+		//弾と敵の当たり判定
+		isBulletCollision_ = bulletmanager_->Collision(pos, size);
+	}
 }

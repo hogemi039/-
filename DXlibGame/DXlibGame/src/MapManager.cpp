@@ -60,11 +60,7 @@ void MapManager::ReadMap()
 		//画像のチップ番号は１から始まるが
 		//プログラム上では０から扱いたいので、
 		//エディター上の数値にfirstGidを引けば０から扱える
-
-		//エラーの原因候補１-----------------------------
 		mapList.push_back(atoi(start) - firstGid);
-		//--------------------------------------------
-
 		//カンマがなかった（最後）なら抜ける
 		if (end == nullptr)
 		{
@@ -88,7 +84,11 @@ int MapManager::GetMapHeight()
 int MapManager::GetChipNum(int x, int y)
 {
 	//マップ下か右にはみ出ていたら
-	if (y >= mapHeight || x >= mapWidth)
+	if (y >= mapHeight)
+	{
+		return -1;
+	}
+	if (x < 0 || y < 0 || x >= mapWidth)
 	{
 		return -1;
 	}
