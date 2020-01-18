@@ -31,7 +31,6 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine
 
 		Input::GetInstance().Update();
 		Time::Update();
-		DrawMap();
 		player_->Update();
 		enemy_->Update();
 		player_->SetTargetActive(enemy_->GetActive());
@@ -39,6 +38,8 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine
 		player_->SetTargetPosition(enemy_->GetPosition());
 		player_->SetTargetSize(enemy_->GetSize());
 		enemy_->SetCollisionFlag(player_->GetCollisionFlag());
+		auto e_pos = enemy_->GetPosition();
+		DrawMap();
 		player_->Render();
 		enemy_->Render();
 		DxLib::ScreenFlip();

@@ -5,6 +5,7 @@
 * @date   2019/10/23
 */
 #include "Bullet.hpp"
+#include "Camera.hpp"
 
 /**
 * @brief コンストラクタ
@@ -33,7 +34,7 @@ void Bullet::Move()
 */
 void Bullet::Render()
 {
-	DxLib::DrawRotaGraph(static_cast<int>(position_.x), static_cast<int>(position_.y)   //座標
+	DxLib::DrawRotaGraph(static_cast<int>(position_.x - Camera::position_.x), static_cast<int>(position_.y - Camera::position_.y)   //座標
 		, 1                                                                             //拡大率
 		, 0																			    //回転
 		, handle_                                                                       //画像データ

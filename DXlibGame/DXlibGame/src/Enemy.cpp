@@ -7,6 +7,7 @@
 #include "Enemy.hpp"
 #include "Timer.hpp"
 #include "Map.hpp"
+#include "Camera.hpp"
 
 #define DEBUG
 
@@ -125,7 +126,7 @@ void Enemy::Render()
 	{
 		return;
 	}
-	DxLib::DrawRotaGraph(static_cast<int>(position_.x), static_cast<int>(position_.y)   //座標
+	DxLib::DrawRotaGraph(static_cast<int>(position_.x - Camera::position_.x), static_cast<int>(position_.y - Camera::position_.y)   //座標
 		, 1                                                                             //拡大率
 		, 0																			    //回転
 		, handle_                                                                       //画像データ
@@ -133,8 +134,9 @@ void Enemy::Render()
 		, (moveVector_.x < 0) ? TRUE : FALSE);                                          //左右判定を有効にするか
 
 #ifdef DEBUG
-	DxLib::DrawCircle(position_.x, position_.y, 2, GetColor(255, 100, 255), 1);
-	DxLib::DrawBox(position_.x - 32 / 2, position_.y - 32 / 2, position_.x + 32 / 2, position_.y + 32 / 2, GetColor(255, 255, 255), 0);
+	DxLib::DrawCircle(Camera::position_.x - position_.x, Camera::position_.y - position_.y, 2, GetColor(255, 100, 255), 1);
+	DxLib::DrawBox(Camera::position_.x - position_.x - 32 / 2, Camera::position_.y - position_.y - 32 / 2, Camera::position_.x - position_.x + 32 / 2, Camera::position_.y - position_.y + 32 / 2, GetColor(255, 255, 255), 0);
+	DxLib::DrawFormatString(0, 15, GetColor(255, 255, 255), "EnemyPos:x = %5f, y = %5f", position_.x, position_.y);
 #endif
 }
 

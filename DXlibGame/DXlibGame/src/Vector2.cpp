@@ -12,6 +12,11 @@ Vector2 operator+(const Vector2& vector1, const Vector2& vector2)
 	return Vector2{ vector1.x + vector2.x, vector1.y + vector2.y };
 }
 
+Vector2 operator-(const Vector2& vector1, const Vector2& vector2)
+{
+	return Vector2{ vector1.x - vector2.x, vector1.y - vector2.y };
+}
+
 Vector2 operator*(const Vector2& vector1, const float& scalar)
 {
 	return Vector2{ vector1.x * scalar, vector1.y * scalar };
@@ -20,6 +25,12 @@ Vector2 operator*(const Vector2& vector1, const float& scalar)
 Vector2& Vector2::operator+=(const Vector2& vector)
 {
 	*this = *this + vector;
+	return *this;
+}
+
+Vector2& Vector2::operator-=(const Vector2& vector)
+{
+	*this = *this - vector;
 	return *this;
 }
 

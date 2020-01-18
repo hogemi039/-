@@ -11,13 +11,7 @@
 
 class Camera
 {
-private:
-	Vector2 position_{};
-	Vector2 loolPosition_{};
 public:
-	MATRIX GetMatrix();
-	void Move();
-	Camera() {};
-	~Camera() {};
+	inline static Vector2 position_{};
 };
 #endif

@@ -7,6 +7,7 @@
 #ifndef MAP_HPP
 #define MAP_HPP
 #include "MapManager.hpp"
+#include "Camera.hpp"
 
 namespace
 {
@@ -29,14 +30,14 @@ namespace
 			{
 				if (mapMng->GetChipNum(x, y) != -1)
 				{
-					DxLib::DrawGraph(x * 32, y * 32, maphandle[mapMng->GetChipNum(x, y)], true);
+					DxLib::DrawGraph((x - Camera::position_.x / 32) * 32, (y - Camera::position_.y / 32) * 32, maphandle[mapMng->GetChipNum(x, y)], true);
 				}
 			}
 		}
 	}
 
 	bool GetMapState(int x, int y)
-	{
+	{  
 		if (mapMng->GetChipNum(x, y) != -1)
 		{
 			return true;
@@ -44,5 +45,4 @@ namespace
 		return false;
 	}
 }
-
 #endif

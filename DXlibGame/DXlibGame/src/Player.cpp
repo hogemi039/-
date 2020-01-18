@@ -5,6 +5,7 @@
 * @date   2019/10/13
 */
 #include "Player.hpp"
+#include "Camera.hpp"
 
 #define DEBUG
 
@@ -29,7 +30,7 @@ Player::~Player()
 */
 void Player::Init()
 {
-	position_ = Vector2(16.0f, 0.0f);
+	position_ = Vector2(0.f, 0.f);
 }
 
 /**
@@ -162,7 +163,7 @@ void Player::Move(float dir)
 */
 void Player::Render()
 {
-	DxLib::DrawRotaGraph(static_cast<int>(position_.x), static_cast<int>(position_.y)   //座標
+	DxLib::DrawRotaGraph(static_cast<int>(position_.x - Camera::position_.x), static_cast<int>(position_.y - Camera::position_.y)   //座標
 		, 1                                                                             //拡大率
 		, 0																			    //回転
 		, handle_                                                                       //画像データ
@@ -171,8 +172,10 @@ void Player::Render()
 	bulletmanager_->Render();
 
 #ifdef DEBUG
-	DxLib::DrawCircle(position_.x, position_.y, 2, GetColor(255, 100, 255), 1);
-	DxLib::DrawBox(position_.x - 32 / 2, position_.y - 32 / 2, position_.x + 32 / 2, position_.y + 32 / 2, GetColor(255, 255, 255), 0);
+	DxLib::DrawCircle(Camera::position_.x - position_.x, Camera::position_.y - position_.y, 2, GetColor(255, 100, 255), 1);
+	DxLib::DrawBox(Camera::position_.x - position_.x - 32 / 2, Camera::position_.y - position_.y - 32 / 2, Camera::position_.x - position_.x + 32 / 2, Camera::position_.y - position_.y + 32 / 2, GetColor(255, 255, 255), 0);
+	DxLib::DrawFormatString(400, 0, GetColor(255, 255, 255), "CameraPos:x = %5f, y = %5f", Camera::position_.x, Camera::position_.y);
+	DxLib::DrawFormatString(0, 0, GetColor(255, 255, 255), "PlayerPos:x = %5f, y = %5f", position_.x, position_.y);
 #endif
 }
 
@@ -194,6 +197,10 @@ void Player::Update()
 		playerDir_ = Right;
 		Move(playerDir_);
 	}
+
+	Camera::position_.x = position_.x - (1280 / 2);
+	Camera::position_.y = position_.y - (720 / 2);
+
 	if (Input::GetInstance().GetKeyDown(KEY_INPUT_B))
 	{
 		bulletmanager_->Shot(position_, playerDir_);
