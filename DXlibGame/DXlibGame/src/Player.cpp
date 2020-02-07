@@ -18,6 +18,7 @@ Player::Player()
 	bulletmanager_ = new BulletManager();
 	handle_ = DxLib::LoadGraph("resource/image/purun.png");
 	playerDir_ = Right;
+	active_ = true;
 }
 
 Player::~Player()
@@ -30,7 +31,7 @@ Player::~Player()
 */
 void Player::Init()
 {
-	position_ = Vector2(0.f, 0.f);
+	position_ = Vector2(0.f, -16.f);
 }
 
 /**
@@ -159,6 +160,45 @@ void Player::Move(float dir)
 }
 
 /**
+* @brief 当たり判定の関数
+*/
+void Player::Collision(Vector2 pos, Vector2 size)
+{
+	if (active_ == false)
+	{
+		return;
+	}
+	//自分の左上の角が対象の矩形に入ったかを見る
+	if ( (pos.x >= position_.x && position_.x <= pos.x + size.x) &&
+		(pos.y >= position_.y && position_.y <= pos.y + size.y) )
+	{
+		//Collision function
+		DrawFormatString(200, 0, GetColor(255, 255, 255), "自身の左上が当たった");
+	}
+	//自分の右上の角が対象の矩形に入ったかを見る
+	else if ( (pos.x <= position_.x + size_.x && position_.x + size_.x <= pos.x + size.x) &&
+		(pos.y <= position_.y && position_.y <= pos.y + size.y) )
+	{
+		//Collision function
+		DrawFormatString(200, 0, GetColor(255, 255, 255), "自身の右上が当たった");
+	}
+	//自分の左下の角が対象の矩形に入ったかを見る
+	else if ((pos.x <= position_.x && position_.x <= pos.x + size.x) &&
+		(pos.y <= position_.y + size_.y && position_.y + size_.y <= pos.y + size.y))
+	{
+		//Collision function
+		DrawFormatString(200, 0, GetColor(255, 255, 255), "自身の左下が当たった");
+	}
+	//自分の左下の角が対象の矩形に入ったかを見る
+	else if ((pos.x <= position_.x + size_.x && position_.x + size_.x <= pos.x + size.x) &&
+		(pos.y <= position_.y + size_.y && position_.y + size_.y <= pos.y + size.y))
+	{
+		//Collision function
+		DrawFormatString(200, 0, GetColor(255, 255, 255), "自身の右下が当たった");
+	}
+}
+
+/**
 * @brief 描画処理
 */
 void Player::Render()
@@ -197,9 +237,9 @@ void Player::Update()
 		playerDir_ = Right;
 		Move(playerDir_);
 	}
-
+	//カメラの位置をプレイヤーが画面の真ん中に来るように設定
 	Camera::position_.x = position_.x - (1280 / 2);
-	Camera::position_.y = position_.y - (720 / 2);
+	Camera::position_.y = position_.y - (720 / 2);  
 
 	if (Input::GetInstance().GetKeyDown(KEY_INPUT_B))
 	{
@@ -211,13 +251,11 @@ void Player::Update()
 	{
 		return;
 	}
-	{
-		//敵の座標とサイズが入る
-		bulletmanager_->SetTargetPosition(targetPosition_);
-		bulletmanager_->SetTargetSize(targetSize_);
-		auto pos = bulletmanager_->GetTargetPosition();
-		auto size = bulletmanager_->GetTargetSize();
-		//弾と敵の当たり判定
-		isBulletCollision_ = bulletmanager_->Collision(pos, size);
-	}
+	//敵の座標とサイズが入る
+	bulletmanager_->SetTargetPosition(targetPosition_);
+	bulletmanager_->SetTargetSize(targetSize_);
+	auto pos = bulletmanager_->GetTargetPosition();
+	auto size = bulletmanager_->GetTargetSize();
+	//弾と敵の当たり判定
+	isBulletCollision_ = bulletmanager_->Collision(pos, size);
 }

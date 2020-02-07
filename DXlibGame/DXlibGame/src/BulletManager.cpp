@@ -31,6 +31,7 @@ bool BulletManager::Collision(Vector2 position = Vector2(0.f,0.f), Vector2 size 
 		}
 		auto bulletPos = temp->GetPosition();
 		auto bulletSize = temp->GetSize();
+		//自分の左上の角が対象の矩形に入ったかを見る
 		if ((position.x <= bulletPos.x && bulletPos.x <= (position.x + size.x)) &&
 			(position.y <= bulletPos.y && bulletPos.y <= (position.y + size.y)))
 		{
@@ -38,6 +39,7 @@ bool BulletManager::Collision(Vector2 position = Vector2(0.f,0.f), Vector2 size 
 			bullets_.erase(bullets_.begin() + i);
 			return true;
 		}
+		//自分の右上の角が対象の矩形に入ったかを見る
 		else if ((position.x <= (bulletPos.x + bulletSize.x) && (bulletPos.x + bulletSize.x) <= (position.x + size.x)) &&
 			(position.y <= bulletPos.y && bulletPos.y <= (position.y + size.y)))
 		{
@@ -45,6 +47,7 @@ bool BulletManager::Collision(Vector2 position = Vector2(0.f,0.f), Vector2 size 
 			bullets_.erase(bullets_.begin() + i);
 			return true;
 		}
+		//自分の左下の角が対象の矩形に入ったかを見る
 		else if ((position.x <= bulletPos.x && bulletPos.x <= (position.x + size.x)) &&
 			(position.y <= (bulletPos.y + bulletSize.y) && (bulletPos.y + bulletSize.y) <= (position.y + size.y)))
 		{
@@ -52,6 +55,7 @@ bool BulletManager::Collision(Vector2 position = Vector2(0.f,0.f), Vector2 size 
 			bullets_.erase(bullets_.begin() + i);
 			return true;
 		}
+		//自分の右下の角が対象の矩形に入ったかを見る
 		else if ((position.x <= (bulletPos.x + bulletSize.x) && (bulletPos.x + bulletSize.x) <= (position.x + size.x)) &&
 			(position.y <= (bulletPos.y + bulletSize.y) && (bulletPos.y + bulletSize.y) <= (position.y + size.y)))
 		{

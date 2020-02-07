@@ -14,7 +14,7 @@ class Bullet : public Object
 {
 private:
 	const float SPEED{ 10.0f };
-	Vector2 size = Vector2(16.0f, 16.0f);
+	Vector2 size{ 16.0f, 16.0f };
 	Vector2 moveVector_{};
 	bool active_{};
 public:

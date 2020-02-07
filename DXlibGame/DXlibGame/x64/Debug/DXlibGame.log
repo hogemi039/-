@@ -1,2 +1,26 @@
-﻿  MapManager.cpp
+﻿  Bullet.cpp
+  BulletManager.cpp
+  Main.cpp
+c:\users\user\documents\dxlibgame\dxlibgame\dxlibgame\src\map.hpp(33): warning C4244: '引数': 'float' から 'int' への変換です。データが失われる可能性があります。
+  Player.cpp
+c:\users\user\documents\dxlibgame\dxlibgame\dxlibgame\src\map.hpp(33): warning C4244: '引数': 'float' から 'int' への変換です。データが失われる可能性があります。
+c:\users\user\documents\dxlibgame\dxlibgame\dxlibgame\src\player.cpp(63): warning C4244: '初期化中': 'float' から 'int' への変換です。データが失われる可能性があります。
+c:\users\user\documents\dxlibgame\dxlibgame\dxlibgame\src\player.cpp(64): warning C4244: '初期化中': 'float' から 'int' への変換です。データが失われる可能性があります。
+c:\users\user\documents\dxlibgame\dxlibgame\dxlibgame\src\player.cpp(70): warning C4244: '=': 'int' から 'float' への変換です。データが失われる可能性があります。
+c:\users\user\documents\dxlibgame\dxlibgame\dxlibgame\src\player.cpp(76): warning C4244: '=': 'int' から 'float' への変換です。データが失われる可能性があります。
+c:\users\user\documents\dxlibgame\dxlibgame\dxlibgame\src\player.cpp(82): warning C4244: '初期化中': 'float' から 'int' への変換です。データが失われる可能性があります。
+c:\users\user\documents\dxlibgame\dxlibgame\dxlibgame\src\player.cpp(83): warning C4244: '初期化中': 'float' から 'int' への変換です。データが失われる可能性があります。
+c:\users\user\documents\dxlibgame\dxlibgame\dxlibgame\src\player.cpp(89): warning C4244: '=': 'int' から 'float' への変換です。データが失われる可能性があります。
+c:\users\user\documents\dxlibgame\dxlibgame\dxlibgame\src\player.cpp(95): warning C4244: '=': 'int' から 'float' への変換です。データが失われる可能性があります。
+c:\users\user\documents\dxlibgame\dxlibgame\dxlibgame\src\player.cpp(102): warning C4244: '初期化中': 'float' から 'int' への変換です。データが失われる可能性があります。
+c:\users\user\documents\dxlibgame\dxlibgame\dxlibgame\src\player.cpp(103): warning C4244: '初期化中': 'float' から 'int' への変換です。データが失われる可能性があります。
+c:\users\user\documents\dxlibgame\dxlibgame\dxlibgame\src\player.cpp(135): warning C4244: '初期化中': 'float' から 'int' への変換です。データが失われる可能性があります。
+c:\users\user\documents\dxlibgame\dxlibgame\dxlibgame\src\player.cpp(136): warning C4244: '初期化中': 'float' から 'int' への変換です。データが失われる可能性があります。
+c:\users\user\documents\dxlibgame\dxlibgame\dxlibgame\src\player.cpp(142): warning C4244: '=': 'int' から 'float' への変換です。データが失われる可能性があります。
+c:\users\user\documents\dxlibgame\dxlibgame\dxlibgame\src\player.cpp(147): warning C4244: '=': 'int' から 'float' への変換です。データが失われる可能性があります。
+c:\users\user\documents\dxlibgame\dxlibgame\dxlibgame\src\player.cpp(152): warning C4244: '=': 'int' から 'float' への変換です。データが失われる可能性があります。
+c:\users\user\documents\dxlibgame\dxlibgame\dxlibgame\src\player.cpp(157): warning C4244: '=': 'int' から 'float' への変換です。データが失われる可能性があります。
+c:\users\user\documents\dxlibgame\dxlibgame\dxlibgame\src\player.cpp(215): warning C4244: '引数': 'float' から 'int' への変換です。データが失われる可能性があります。
+c:\users\user\documents\dxlibgame\dxlibgame\dxlibgame\src\player.cpp(216): warning C4244: '引数': 'float' から 'int' への変換です。データが失われる可能性があります。
+  コードを生成中...
   DXlibGame.vcxproj -> C:\Users\user\Documents\DxLibGame\DXlibGame\x64\Debug\DXlibGame.exe

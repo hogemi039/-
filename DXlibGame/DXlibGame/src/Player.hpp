@@ -29,8 +29,10 @@ private:
 	BulletManager *bulletmanager_{};
 	Vector2 targetPosition_{};
 	Vector2 targetSize_{};
+	Vector2 size_{ 16.0f, 16.0f };
 	bool isBulletCollision_{};
 	bool isTargetActive_{};
+	bool active_{};
 	void Fall();
 	void Jump();
 	void Move(float);
@@ -51,9 +53,17 @@ public:
 	{
 		return targetSize_;
 	}
+	Vector2 GetSize()
+	{
+		return size_;
+	}
 	bool GetCollisionFlag()
 	{
 		return isBulletCollision_;
+	}
+	bool GetActive()
+	{
+		return active_;
 	}
 	void SetTargetPosition(Vector2 targetpos)
 	{
@@ -67,9 +77,14 @@ public:
 	{
 		isTargetActive_ = target;
 	}
+	void SetActive(bool active)
+	{
+		active_ = active;
+	}
 	void Init();
 	void Render();
 	void Update();
+	void Collision(Vector2, Vector2);
 	Player();
 	~Player();
 };
