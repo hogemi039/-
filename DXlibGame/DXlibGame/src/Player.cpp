@@ -212,8 +212,9 @@ void Player::Render()
 	bulletmanager_->Render();
 
 #ifdef DEBUG
-	DxLib::DrawCircle(Camera::position_.x - position_.x, Camera::position_.y - position_.y, 2, GetColor(255, 100, 255), 1);
-	DxLib::DrawBox(Camera::position_.x - position_.x - 32 / 2, Camera::position_.y - position_.y - 32 / 2, Camera::position_.x - position_.x + 32 / 2, Camera::position_.y - position_.y + 32 / 2, GetColor(255, 255, 255), 0);
+	DxLib::DrawCircle(position_.x - Camera::position_.x, position_.y - Camera::position_.y, 2, GetColor(255, 100, 255), 1);
+	DxLib::DrawBox(position_.x - 32 / 2 - Camera::position_.x, position_.y - 32 / 2 - Camera::position_.y, position_.x + 32 / 2 - Camera::position_.x,
+		position_.y + 32 / 2 - Camera::position_.y, GetColor(255, 255, 255), 0);
 	DxLib::DrawFormatString(400, 0, GetColor(255, 255, 255), "CameraPos:x = %5f, y = %5f", Camera::position_.x, Camera::position_.y);
 	DxLib::DrawFormatString(0, 0, GetColor(255, 255, 255), "PlayerPos:x = %5f, y = %5f", position_.x, position_.y);
 #endif
@@ -225,6 +226,7 @@ void Player::Render()
 void Player::Update()
 {
 	moveVector_ = Vector2(0.0f, 0.0f);
+
 	Jump();
 	Fall();
 	if (Input::GetInstance().GetKey(KEY_INPUT_LEFT))

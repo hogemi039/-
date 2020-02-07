@@ -134,8 +134,9 @@ void Enemy::Render()
 		, (moveVector_.x < 0) ? TRUE : FALSE);                                          //¶‰E”»’è‚ð—LŒø‚É‚·‚é‚©
 
 #ifdef DEBUG
-	DxLib::DrawCircle(Camera::position_.x - position_.x, Camera::position_.y - position_.y, 2, GetColor(255, 100, 255), 1);
-	DxLib::DrawBox(Camera::position_.x - position_.x - 32 / 2, Camera::position_.y - position_.y - 32 / 2, Camera::position_.x - position_.x + 32 / 2, Camera::position_.y - position_.y + 32 / 2, GetColor(255, 255, 255), 0);
+	DxLib::DrawCircle(position_.x - Camera::position_.x, position_.y - Camera::position_.y, 2, GetColor(255, 100, 255), 1);
+	DxLib::DrawBox(position_.x - 32 / 2 - Camera::position_.x, position_.y - 32 / 2 - Camera::position_.y, position_.x + 32 / 2 - Camera::position_.x,
+	position_.y + 32 / 2 - Camera::position_.y, GetColor(255, 255, 255), 0); 
 	DxLib::DrawFormatString(0, 15, GetColor(255, 255, 255), "EnemyPos:x = %5f, y = %5f", position_.x, position_.y);
 #endif
 }

@@ -28,11 +28,11 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine
 	{
 		DxLib::ClearDrawScreen();
 		DxLib::DrawGraph(0, 0, backgroundImg, TRUE);
-
 		Input::GetInstance().Update();
 		Time::Update();
 		player_->Update();
 		enemy_->Update();
+		//敵が生きているかをプレイヤーに保持させておく
 		player_->SetTargetActive(enemy_->GetActive());
 		//当たり判定のため、標的の座標と当たり判定のサイズを取る
 		player_->SetTargetPosition(enemy_->GetPosition());
