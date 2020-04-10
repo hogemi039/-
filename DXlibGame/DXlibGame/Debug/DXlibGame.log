@@ -1,0 +1,9 @@
+﻿  Enemy.cpp
+  Main.cpp
+C:\Users\user\Documents\DxLibGame\DXlibGame\DXlibGame\src\Main.cpp(10,87): warning C4100: 'nCmdShow': 引数は関数の本体部で 1 度も参照されません。
+C:\Users\user\Documents\DxLibGame\DXlibGame\DXlibGame\src\Main.cpp(10,72): warning C4100: 'lpCmdLine': 引数は関数の本体部で 1 度も参照されません。
+C:\Users\user\Documents\DxLibGame\DXlibGame\DXlibGame\src\Main.cpp(10,51): warning C4100: 'hPrevInstance': 引数は関数の本体部で 1 度も参照されません。
+  Player.cpp
+  コードを生成中...
+C:\Users\user\Documents\DxLibGame\DXlibGame\DXlibGame\src\Main.cpp(10,30): warning C4100: 'hInstance': 引数は関数の本体部で 1 度も参照されません。
+  DXlibGame.vcxproj -> C:\Users\user\Documents\DxLibGame\DXlibGame\Debug\DXlibGame.exe

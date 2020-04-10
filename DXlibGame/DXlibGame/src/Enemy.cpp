@@ -1,7 +1,7 @@
-/**
+Ôªø/**
 * @file   Enemy.cpp
-* @brief  ÉNÉâÉXÇÃÉÅÉìÉoä÷êîÇÃíËã`
-* @auther à…ì° çLé˜
+* @brief  „ÇØ„É©„Çπ„ÅÆ„É°„É≥„ÉêÈñ¢Êï∞„ÅÆÂÆöÁæ©
+* @auther ‰ºäËó§ Â∫ÉÊ®π
 * @date   2019/11/30
 */
 #include "Enemy.hpp"
@@ -38,52 +38,52 @@ void Enemy::Fall()
 	moveVector_.y += fallSpeed_;
 	position_.y += moveVector_.y;
 
-	//ÉWÉÉÉìÉvíÜ
+	//„Ç∏„É£„É≥„Éó‰∏≠
 	if (isJump_)
 	{
-		//è„è∏íÜ
+		//‰∏äÊòá‰∏≠
 		if (fallSpeed_ < 0)
 		{
-			int x = position_.x - GROUND_IMAGE_SIZE / 2;
-			int y = position_.y - GROUND_IMAGE_SIZE / 2;
-			//è„ÇÃç∂âEÇå©ÇÈ
+			int x = static_cast<int>(position_.x - GROUND_IMAGE_SIZE / 2);
+			int y = static_cast<int>(position_.y - GROUND_IMAGE_SIZE / 2);
+			//‰∏ä„ÅÆÂ∑¶Âè≥„ÇíË¶ã„Çã
 			if (GetMapState(x / GROUND_IMAGE_SIZE, y))
 			{
 				isJump_ = false;
 				fallSpeed_ = 0;
-				position_.y = (y + 1) * GROUND_IMAGE_SIZE + GROUND_IMAGE_SIZE / 2;
+				position_.y = static_cast<float>((y + 1) * GROUND_IMAGE_SIZE + GROUND_IMAGE_SIZE / 2);
 			}
 			else if (GetMapState((x + (GROUND_IMAGE_SIZE - 1)) / GROUND_IMAGE_SIZE, y))
 			{
 				isJump_ = false;
 				fallSpeed_ = 0;
-				position_.y = (y + 1) * GROUND_IMAGE_SIZE + GROUND_IMAGE_SIZE / 2;
+				position_.y = static_cast<float>((y + 1) * GROUND_IMAGE_SIZE + GROUND_IMAGE_SIZE / 2);
 			}
 		}
-		//óéâ∫íÜ
+		//ËêΩ‰∏ã‰∏≠
 		else
 		{
-			int x = position_.x - GROUND_IMAGE_SIZE / 2;
-			int y = ((position_.y + (GROUND_IMAGE_SIZE - 1)) - GROUND_IMAGE_SIZE / 2) / GROUND_IMAGE_SIZE;
+			int x = static_cast<int>(position_.x - GROUND_IMAGE_SIZE / 2);
+			int y = static_cast<int>((position_.y + (GROUND_IMAGE_SIZE - 1) - GROUND_IMAGE_SIZE / 2) / GROUND_IMAGE_SIZE);
 			if (GetMapState(x / GROUND_IMAGE_SIZE, y))
 			{
 				isJump_ = false;
 				fallSpeed_ = 0;
-				position_.y = (y - 1) * GROUND_IMAGE_SIZE + GROUND_IMAGE_SIZE / 2;
+				position_.y = static_cast<float>((y - 1) * GROUND_IMAGE_SIZE + GROUND_IMAGE_SIZE / 2);
 			}
 			else if (GetMapState((x + (GROUND_IMAGE_SIZE - 1)) / GROUND_IMAGE_SIZE, y))
 			{
 				isJump_ = false;
 				fallSpeed_ = 0;
-				position_.y = (y - 1) * GROUND_IMAGE_SIZE + GROUND_IMAGE_SIZE / 2;
+				position_.y = static_cast<float>((y - 1) * GROUND_IMAGE_SIZE + GROUND_IMAGE_SIZE / 2);
 			}
 		}
 	}
-	//íÖíníÜ
+	//ÁùÄÂú∞‰∏≠
 	else
 	{
-		int x = position_.x - GROUND_IMAGE_SIZE / 2;
-		int y = ((position_.y + 32) - GROUND_IMAGE_SIZE / 2) / GROUND_IMAGE_SIZE;
+		int x = static_cast<int>(position_.x - GROUND_IMAGE_SIZE / 2);
+		int y = static_cast<int>(((position_.y + 32) - GROUND_IMAGE_SIZE / 2) / GROUND_IMAGE_SIZE);
 		if (!GetMapState(x / GROUND_IMAGE_SIZE, y) && !GetMapState((x + (GROUND_IMAGE_SIZE - 1)) / GROUND_IMAGE_SIZE, y))
 		{
 			isJump_ = true;
@@ -93,29 +93,29 @@ void Enemy::Fall()
 
 void Enemy::Move()
 {
-	moveVector_.x += 1.f;
+	moveVector_.x += 30.f * Time::deltaTime;
 	position_.x += moveVector_.x;
-	//â°ÇÃÉAÉ^ÉäîªíË
+	//Ê®™„ÅÆ„Ç¢„Çø„É™Âà§ÂÆö
 	{
-		int x = position_.x - GROUND_IMAGE_SIZE / 2;
-		int y = position_.y - GROUND_IMAGE_SIZE / 2;
-		//è„
+		int x = static_cast<int>(position_.x - GROUND_IMAGE_SIZE / 2);
+		int y = static_cast<int>(position_.y - GROUND_IMAGE_SIZE / 2);
+		//‰∏ä
 		if (GetMapState(x / GROUND_IMAGE_SIZE, y / GROUND_IMAGE_SIZE))
 		{
-			position_.x = (x / GROUND_IMAGE_SIZE + 1) * GROUND_IMAGE_SIZE + GROUND_IMAGE_SIZE / 2;
+			position_.x = static_cast<float>((x / GROUND_IMAGE_SIZE + 1) * GROUND_IMAGE_SIZE + GROUND_IMAGE_SIZE / 2);
 		}
-		else if(GetMapState((x + (GROUND_IMAGE_SIZE - 1)) / GROUND_IMAGE_SIZE, y / GROUND_IMAGE_SIZE))
+		else if (GetMapState((x + (GROUND_IMAGE_SIZE - 1)) / GROUND_IMAGE_SIZE, y / GROUND_IMAGE_SIZE))
 		{
-			position_.x = x / GROUND_IMAGE_SIZE * GROUND_IMAGE_SIZE + GROUND_IMAGE_SIZE / 2;
+			position_.x = static_cast<float>(x / GROUND_IMAGE_SIZE * GROUND_IMAGE_SIZE + GROUND_IMAGE_SIZE / 2);
 		}
-		//â∫
+		//‰∏ã
 		else if (GetMapState(x / GROUND_IMAGE_SIZE, (y + (GROUND_IMAGE_SIZE - 1)) / GROUND_IMAGE_SIZE))
 		{
-			position_.x = (x / GROUND_IMAGE_SIZE + 1) * GROUND_IMAGE_SIZE + GROUND_IMAGE_SIZE / 2;
+			position_.x = static_cast<float>((x / GROUND_IMAGE_SIZE + 1) * GROUND_IMAGE_SIZE + GROUND_IMAGE_SIZE / 2);
 		}
 		else if (GetMapState((x + (GROUND_IMAGE_SIZE - 1)) / GROUND_IMAGE_SIZE, (y + (GROUND_IMAGE_SIZE - 1)) / GROUND_IMAGE_SIZE))
 		{
-			position_.x = x / GROUND_IMAGE_SIZE * GROUND_IMAGE_SIZE + GROUND_IMAGE_SIZE / 2;
+			position_.x = static_cast<float>(x / GROUND_IMAGE_SIZE * GROUND_IMAGE_SIZE + GROUND_IMAGE_SIZE / 2);
 		}
 	}
 }
@@ -126,17 +126,17 @@ void Enemy::Render()
 	{
 		return;
 	}
-	DxLib::DrawRotaGraph(static_cast<int>(position_.x - Camera::position_.x), static_cast<int>(position_.y - Camera::position_.y)   //ç¿ïW
-		, 1                                                                             //ägëÂó¶
-		, 0																			    //âÒì]
-		, handle_                                                                       //âÊëúÉfÅ[É^
-		, true                                                                          //ìßñæìxÇóLå¯Ç…Ç∑ÇÈÇ©
-		, (moveVector_.x < 0) ? TRUE : FALSE);                                          //ç∂âEîªíËÇóLå¯Ç…Ç∑ÇÈÇ©
+	DxLib::DrawRotaGraph(static_cast<int>(position_.x - Camera::position_.x), static_cast<int>(position_.y - Camera::position_.y)   //Â∫ßÊ®ô
+		, 1                                                                             //Êã°Â§ßÁéá
+		, 0																			    //ÂõûËª¢
+		, handle_                                                                       //ÁîªÂÉè„Éá„Éº„Çø
+		, true                                                                          //ÈÄèÊòéÂ∫¶„ÇíÊúâÂäπ„Å´„Åô„Çã„Åã
+		, (moveVector_.x < 0) ? TRUE : FALSE);                                          //Â∑¶Âè≥Âà§ÂÆö„ÇíÊúâÂäπ„Å´„Åô„Çã„Åã
 
 #ifdef DEBUG
-	DxLib::DrawCircle(position_.x - Camera::position_.x, position_.y - Camera::position_.y, 2, GetColor(255, 100, 255), 1);
-	DxLib::DrawBox(position_.x - 32 / 2 - Camera::position_.x, position_.y - 32 / 2 - Camera::position_.y, position_.x + 32 / 2 - Camera::position_.x,
-	position_.y + 32 / 2 - Camera::position_.y, GetColor(255, 255, 255), 0); 
+	DxLib::DrawCircle(static_cast<int>(position_.x - Camera::position_.x), static_cast<int>(position_.y - Camera::position_.y), 2, GetColor(255, 100, 255), 1);
+	DxLib::DrawBox(static_cast<int>(position_.x - 32 / 2 - Camera::position_.x), static_cast<int>(position_.y - 32 / 2 - Camera::position_.y), static_cast<int>(position_.x + 32 / 2 - Camera::position_.x),
+		static_cast<int>(position_.y + 32 / 2 - Camera::position_.y), GetColor(255, 255, 255), 0);
 	DxLib::DrawFormatString(0, 15, GetColor(255, 255, 255), "EnemyPos:x = %5f, y = %5f", position_.x, position_.y);
 #endif
 }

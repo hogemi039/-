@@ -1,7 +1,7 @@
-/**
+Ôªø/**
 * @file   Player.hpp
-* @brief  playerÇÃÉÅÉìÉoÇêÈåæ
-* @auther à…ì° çLé˜
+* @brief  player„ÅÆ„É°„É≥„Éê„ÇíÂÆ£Ë®Ä
+* @auther ‰ºäËó§ Â∫ÉÊ®π
 * @date   2019/10/13
 */
 #ifndef PLAYER_HPP
@@ -16,26 +16,30 @@
 class Player : public Object
 {
 private:
-	enum DIR
+	enum class DIR
 	{
 		Left = -1,
 		Right = 1
 	};
 	const float SPEEDLIMIT{ 7.0f };
-	const float FALLACCELERATION{ 20.0f };
-	const float FALLSPEEDLIMIT{ 20.0f };
-	const float SPEED{ 3.0f };
-	float jumpForce_{ -7.5f };
-	BulletManager *bulletmanager_{};
+	const float FALLACCELERATION{ 40.0f };
+	const float FALLSPEEDLIMIT{ 40.0f };
+	const float SPEED{ 150.0f };
+	const float KNOCKBACKSPEED{ 50.0f };
+	float jumpForce_{ -12.5f };
+	float knockBackTimer_{ 0.0f };
+	BulletManager* bulletmanager_{};
 	Vector2 targetPosition_{};
 	Vector2 targetSize_{};
 	Vector2 size_{ 16.0f, 16.0f };
 	bool isBulletCollision_{};
 	bool isTargetActive_{};
+	bool control_{};
 	bool active_{};
 	void Fall();
 	void Jump();
-	void Move(float);
+	void Move(const float);
+	void KnockBack();
 public:
 	Vector2 moveVector_{};
 	float fallSpeed_{};
@@ -84,7 +88,7 @@ public:
 	void Init();
 	void Render();
 	void Update();
-	void Collision(Vector2, Vector2);
+	bool Collision(const Vector2, const Vector2);
 	Player();
 	~Player();
 };

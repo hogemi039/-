@@ -12,8 +12,8 @@
 class Enemy : Object
 {
 private:
-	const float FALLACCELERATION{ 20.0f };
-	const float FALLSPEEDLIMIT{ 20.0f };
+	const float FALLACCELERATION{ 40.0f };
+	const float FALLSPEEDLIMIT{ 40.0f };
 	Vector2 size = Vector2(32.0f, 32.0f);
 	bool isJump_{};
 	bool isCollision_{};

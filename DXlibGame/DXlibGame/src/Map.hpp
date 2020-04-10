@@ -1,7 +1,7 @@
-/**
+ï»¿/**
 * @file   Map.hpp
-* @brief  ƒ}ƒbƒv‚ð•`‰æ
-* @auther ˆÉ“¡ LŽ÷
+* @brief  ãƒžãƒƒãƒ—ã‚’æç”»
+* @auther ä¼Šè—¤ åºƒæ¨¹
 * @date   2019/10/14
 */
 #ifndef MAP_HPP
@@ -11,10 +11,10 @@
 
 namespace
 {
-	//’è”
+	//å®šæ•°
 	const int GROUND_IMAGE_SIZE{ 32 };
 
-	MapManager *mapMng = new MapManager();
+	MapManager* mapMng = new MapManager();
 	int maphandle[70];
 
 	void MapInit()
@@ -30,14 +30,14 @@ namespace
 			{
 				if (mapMng->GetChipNum(x, y) != -1)
 				{
-					DxLib::DrawGraph((x - Camera::position_.x / 32) * 32, (y - Camera::position_.y / 32) * 32, maphandle[mapMng->GetChipNum(x, y)], true);
+					DxLib::DrawGraph(static_cast<int>((x - Camera::position_.x / 32) * 32), static_cast<int>((y - Camera::position_.y / 32) * 32), maphandle[mapMng->GetChipNum(x, y)], true);
 				}
 			}
 		}
 	}
 
 	bool GetMapState(int x, int y)
-	{  
+	{
 		if (mapMng->GetChipNum(x, y) != -1)
 		{
 			return true;

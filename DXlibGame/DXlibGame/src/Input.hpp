@@ -1,8 +1,8 @@
-/**
-* @file   Input.hpp 
-* @brief  ƒL[“ü—Íˆ——pƒNƒ‰ƒX 
-* @auther ˆÉ“¡ L÷ 
-* @date   2019/10/24 
+ï»¿/**
+* @file   Input.hpp
+* @brief  ã‚­ãƒ¼å…¥åŠ›å‡¦ç†ç”¨ã‚¯ãƒ©ã‚¹
+* @auther ä¼Šè—¤ åºƒæ¨¹
+* @date   2019/10/24
 */
 #ifndef INPUT_HPP
 #define INPUT_HPP
@@ -11,7 +11,7 @@
 class Input : public Singleton<Input>
 {
 private:
-	char current_[256], prev_[256];
+	char current_[256]{}, prev_[256]{};
 public:
 	void Update();
 	bool GetKey(const int);

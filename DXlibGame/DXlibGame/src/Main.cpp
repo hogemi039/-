@@ -1,4 +1,4 @@
-#include "DxLib.h"
+ï»¿#include "DxLib.h"
 #include "player.hpp"
 #include "Enemy.hpp"
 #include "Object.hpp"
@@ -9,21 +9,21 @@
 
 int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine, int nCmdShow)
 {
-	//ƒtƒ‹ƒXƒNƒŠ[ƒ“ƒ‚[ƒh‚©‚çƒEƒBƒ“ƒhƒEƒ‚[ƒh‚É•ÏX
+	//ãƒ•ãƒ«ã‚¹ã‚¯ãƒªãƒ¼ãƒ³ãƒ¢ãƒ¼ãƒ‰ã‹ã‚‰ã‚¦ã‚£ãƒ³ãƒ‰ã‚¦ãƒ¢ãƒ¼ãƒ‰ã«å¤‰æ›´
 	DxLib::ChangeWindowMode(true);
-	//ƒEƒBƒ“ƒhƒEƒTƒCƒY‚ðŽw’è
+	//ã‚¦ã‚£ãƒ³ãƒ‰ã‚¦ã‚µã‚¤ã‚ºã‚’æŒ‡å®š
 	DxLib::SetGraphMode(1280, 720, 32);
 	if (DxLib::DxLib_Init() == -1) { return -1; }
 
 	int backgroundImg = LoadGraph("resource/image/background.png");
-	
-	Player *player_ = new Player();
-	Enemy *enemy_ = new Enemy();
+
+	Player* player_ = new Player();
+	Enemy* enemy_ = new Enemy();
 	player_->Init();
 	Time::Init();
 	MapInit();
 	DxLib::SetDrawScreen(DX_SCREEN_BACK);
-	//ESCƒL[‚ð‰Ÿ‚·‚©, ‰æ–Ê‚ð•Â‚¶‚½‚çƒ‹[ƒv‚ð”²‚¯‚é
+	//ESCã‚­ãƒ¼ã‚’æŠ¼ã™ã‹, ç”»é¢ã‚’é–‰ã˜ãŸã‚‰ãƒ«ãƒ¼ãƒ—ã‚’æŠœã‘ã‚‹
 	while (DxLib::ProcessMessage() == 0 && !Input::GetInstance().GetKeyDown(KEY_INPUT_ESCAPE))
 	{
 		DxLib::ClearDrawScreen();
@@ -32,11 +32,11 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine
 		Time::Update();
 		player_->Update();
 		enemy_->Update();
-		//“G‚ª¶‚«‚Ä‚¢‚é‚©‚ðƒvƒŒƒCƒ„[‚É•ÛŽ‚³‚¹‚Ä‚¨‚­
+		//æ•µãŒç”Ÿãã¦ã„ã‚‹ã‹ã‚’ãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼ã«ä¿æŒã•ã›ã¦ãŠã
 		player_->SetTargetActive(enemy_->GetActive());
-		//“–‚½‚è”»’è‚Ì‚½‚ßA•W“I‚ÌÀ•W‚Æ“–‚½‚è”»’è‚ÌƒTƒCƒY‚ðŽæ‚é
-		player_->SetTargetPosition(enemy_->GetPosition());
-		player_->SetTargetSize(enemy_->GetSize());
+		//å½“ãŸã‚Šåˆ¤å®šã®ãŸã‚ã€æ¨™çš„ã®åº§æ¨™ã¨å½“ãŸã‚Šåˆ¤å®šã®ã‚µã‚¤ã‚ºã‚’å–ã‚‹
+		player_->SetTargetPosition(enemy_->GetPosition() - Vector2{ 16.f, 16.f });
+		player_->SetTargetSize(enemy_->GetSize() - Vector2{ 16.f, 16.f });
 		enemy_->SetCollisionFlag(player_->GetCollisionFlag());
 		auto e_pos = enemy_->GetPosition();
 		DrawMap();

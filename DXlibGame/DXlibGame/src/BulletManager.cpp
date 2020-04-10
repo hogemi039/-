@@ -5,6 +5,7 @@
 * @date   2019/11/12
 */
 #include "BulletManager.hpp"
+#include "Camera.hpp"
 #include <algorithm>
 
 /**
@@ -29,35 +30,35 @@ bool BulletManager::Collision(Vector2 position = Vector2(0.f,0.f), Vector2 size 
 		{
 			continue;
 		}
-		auto bulletPos = temp->GetPosition();
-		auto bulletSize = temp->GetSize();
+		auto bulletPos = temp->GetPosition() - Vector2{-16.f, -16.f};
+		auto bulletSize = temp->GetSize() - Vector2{ -16.f, -16.f };
 		//自分の左上の角が対象の矩形に入ったかを見る
-		if ((position.x <= bulletPos.x && bulletPos.x <= (position.x + size.x)) &&
-			(position.y <= bulletPos.y && bulletPos.y <= (position.y + size.y)))
+		if ((position.x <= bulletPos.x - 16.f && bulletPos.x - 16.f <= (position.x + size.x)) &&
+			(position.y <= bulletPos.y - 16.f && bulletPos.y - 16.f <= (position.y + size.y)))
 		{
 			temp->SetActive(false);
 			bullets_.erase(bullets_.begin() + i);
 			return true;
 		}
 		//自分の右上の角が対象の矩形に入ったかを見る
-		else if ((position.x <= (bulletPos.x + bulletSize.x) && (bulletPos.x + bulletSize.x) <= (position.x + size.x)) &&
-			(position.y <= bulletPos.y && bulletPos.y <= (position.y + size.y)))
+		else if ((position.x <= (bulletPos.x + bulletSize.x) - 16.f && (bulletPos.x + bulletSize.x) - 16.f <= (position.x + size.x)) &&
+			(position.y <= bulletPos.y - 16.f && bulletPos.y - 16.f <= (position.y + size.y)))
 		{
 			temp->SetActive(false);
 			bullets_.erase(bullets_.begin() + i);
 			return true;
 		}
 		//自分の左下の角が対象の矩形に入ったかを見る
-		else if ((position.x <= bulletPos.x && bulletPos.x <= (position.x + size.x)) &&
-			(position.y <= (bulletPos.y + bulletSize.y) && (bulletPos.y + bulletSize.y) <= (position.y + size.y)))
+		else if ((position.x <= bulletPos.x - 16.f && bulletPos.x - 16.f <= (position.x + size.x)) &&
+			(position.y <= (bulletPos.y + bulletSize.y) - 16.f && (bulletPos.y + bulletSize.y) - 16.f <= (position.y + size.y)))
 		{
 			temp->SetActive(false);
 			bullets_.erase(bullets_.begin() + i);
 			return true;
 		}
 		//自分の右下の角が対象の矩形に入ったかを見る
-		else if ((position.x <= (bulletPos.x + bulletSize.x) && (bulletPos.x + bulletSize.x) <= (position.x + size.x)) &&
-			(position.y <= (bulletPos.y + bulletSize.y) && (bulletPos.y + bulletSize.y) <= (position.y + size.y)))
+		else if ((position.x <= (bulletPos.x + bulletSize.x) - 16.f && (bulletPos.x + bulletSize.x) - 16.f <= (position.x + size.x)) &&
+			(position.y <= (bulletPos.y + bulletSize.y) - 16.f && (bulletPos.y + bulletSize.y) - 16.f <= (position.y + size.y)))
 		{
 			temp->SetActive(false);
 			bullets_.erase(bullets_.begin() + i);
@@ -79,7 +80,7 @@ void BulletManager::Update()
 		{
 			bullet->Update();
 			auto bulletPos = bullet->GetPosition();
-			return bulletPos.x > 1280 || bulletPos.x < 0;
+			return bulletPos.x - Camera::position_.x > 1280 || bulletPos.x - Camera::position_.x < 0;
 		}),
 		bullets_.end());
 	/*for (int i = bullets.size() - 1; i >= 0; i--)

@@ -1,7 +1,7 @@
-/*
+ï»¿/*
 * @file   Player.cpp
-* @brief  Vector2‚ÌƒNƒ‰ƒX
-* @auther ˆÉ“¡ L÷
+* @brief  Vector2ã®ã‚¯ãƒ©ã‚¹
+* @auther ä¼Šè—¤ åºƒæ¨¹
 * @date   2019/10/01
 */
 #ifndef VECTOR2_HPP
@@ -22,4 +22,5 @@ public:
 Vector2 operator+(const Vector2&, const Vector2&);
 Vector2 operator-(const Vector2&, const Vector2&);
 Vector2 operator*(const Vector2&, const float&);
+static float Distance(const Vector2&, const Vector2&);
 #endif

@@ -1,7 +1,7 @@
-/*
+ï»¿/*
 * @file   Vector2.cpp
-* @brief  operator‚Ì’è‹`
-* @auther ˆÉ“¡ L÷
+* @brief  operatorã®å®šç¾©
+* @auther ä¼Šè—¤ åºƒæ¨¹
 * @data   2019/10/17
 */
 #include "Vector2.hpp"
@@ -52,4 +52,11 @@ void Vector2::Normalize()
 		x /= length;
 		y /= length;
 	}
+}
+
+static float Distance(const Vector2& vec1, const Vector2& vec2)
+{
+	auto x = vec1.x - vec2.x;
+	auto y = vec1.y - vec2.y;
+	return std::abs(std::sqrt(x * x + y * y));
 }

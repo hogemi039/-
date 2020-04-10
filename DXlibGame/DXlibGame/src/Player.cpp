@@ -1,7 +1,7 @@
-/**
+ï»¿/**
 * @file   Player.cpp
-* @brief  player‚Ìƒƒ“ƒoŠÖ”‚Ì’è‹`
-* @auther ˆÉ“¡ L÷
+* @brief  playerã®ãƒ¡ãƒ³ãƒé–¢æ•°ã®å®šç¾©
+* @auther ä¼Šè—¤ åºƒæ¨¹
 * @date   2019/10/13
 */
 #include "Player.hpp"
@@ -11,31 +11,34 @@
 
 
 /**
-* @brief ƒRƒ“ƒXƒgƒ‰ƒNƒ^
+* @brief ã‚³ãƒ³ã‚¹ãƒˆãƒ©ã‚¯ã‚¿
 */
 Player::Player()
 {
 	bulletmanager_ = new BulletManager();
 	handle_ = DxLib::LoadGraph("resource/image/purun.png");
-	playerDir_ = Right;
+	playerDir_ = static_cast<float>(DIR::Right);
 	active_ = true;
 }
 
 Player::~Player()
 {
-	delete bulletmanager_; 
+	delete bulletmanager_;
 }
 
 /**
-* @brief ‰Šú‰»ˆ—
+* @brief åˆæœŸåŒ–å‡¦ç†
 */
 void Player::Init()
 {
-	position_ = Vector2(0.f, -16.f);
+	position_ = Vector2(100.f, -16.f);
+#pragma region debug
+	control_ = true;
+#pragma endregion
 }
 
 /**
-* @brief —‰ºˆ—
+* @brief è½ä¸‹å‡¦ç†
 */
 void Player::Fall()
 {
@@ -51,7 +54,7 @@ void Player::Fall()
 	}
 	else
 	{
-		DrawFormatString(0, 50, GetColor(255, 255, 255), "’…’n");
+		DrawFormatString(0, 50, GetColor(255, 255, 255), "ç€åœ°");
 		fallSpeed_ = 0;
 	}
 
@@ -59,50 +62,50 @@ void Player::Fall()
 	{
 		if (fallSpeed_ < 0)
 		{
-			//ã¸’†‚ÌƒAƒ^ƒŠ
-			int x = position_.x - GROUND_IMAGE_SIZE / 2;
-			int y = (position_.y - GROUND_IMAGE_SIZE / 2) / GROUND_IMAGE_SIZE;
+			//ä¸Šæ˜‡ä¸­ã®ã‚¢ã‚¿ãƒª
+			int x = static_cast<int>(position_.x - GROUND_IMAGE_SIZE / 2);
+			int y = static_cast<int>((position_.y - GROUND_IMAGE_SIZE / 2) / GROUND_IMAGE_SIZE);
 
 			if (GetMapState(x / GROUND_IMAGE_SIZE, y))
 			{
 				isJump_ = false;
 				fallSpeed_ = 0;
-				position_.y = (y + 1) * GROUND_IMAGE_SIZE + GROUND_IMAGE_SIZE / 2;
+				position_.y = static_cast<float>((y + 1) * GROUND_IMAGE_SIZE + GROUND_IMAGE_SIZE / 2);
 			}
 			else if (GetMapState((x + (GROUND_IMAGE_SIZE - 1)) / GROUND_IMAGE_SIZE, y))
 			{
 				isJump_ = false;
 				fallSpeed_ = 0;
-				position_.y = (y + 1) * GROUND_IMAGE_SIZE + GROUND_IMAGE_SIZE / 2;
+				position_.y = static_cast<float>((y + 1) * GROUND_IMAGE_SIZE + GROUND_IMAGE_SIZE / 2);
 			}
 		}
 		else
 		{
-			//—‰º’†‚ÌƒAƒ^ƒŠ
-			int x = position_.x - GROUND_IMAGE_SIZE / 2;
-			int y = ((position_.y + (GROUND_IMAGE_SIZE - 1)) - GROUND_IMAGE_SIZE / 2) / GROUND_IMAGE_SIZE;
+			//è½ä¸‹ä¸­ã®ã‚¢ã‚¿ãƒª
+			int x = static_cast<int>(position_.x - GROUND_IMAGE_SIZE / 2);
+			int y = static_cast<int>(((position_.y + (GROUND_IMAGE_SIZE - 1)) - GROUND_IMAGE_SIZE / 2) / GROUND_IMAGE_SIZE);
 
 			if (GetMapState(x / GROUND_IMAGE_SIZE, y))
 			{
 				isJump_ = false;
 				fallSpeed_ = 0;
-				position_.y = (y - 1) * GROUND_IMAGE_SIZE + GROUND_IMAGE_SIZE / 2;
+				position_.y = static_cast<float>((y - 1) * GROUND_IMAGE_SIZE + GROUND_IMAGE_SIZE / 2);
 			}
 			else if (GetMapState((x + (GROUND_IMAGE_SIZE - 1)) / GROUND_IMAGE_SIZE, y))
 			{
 				isJump_ = false;
 				fallSpeed_ = 0;
-				position_.y = (y - 1) * GROUND_IMAGE_SIZE + GROUND_IMAGE_SIZE / 2;
+				position_.y = static_cast<float>((y - 1) * GROUND_IMAGE_SIZE + GROUND_IMAGE_SIZE / 2);
 			}
 		}
 	}
-	//’…’n‚µ‚Ä‚é‚Æ‚«
+	//ç€åœ°ã—ã¦ã‚‹ã¨ã
 	else
 	{
-		int x = position_.x - GROUND_IMAGE_SIZE / 2;
-		int y = ((position_.y + 32) - GROUND_IMAGE_SIZE / 2) / GROUND_IMAGE_SIZE;
-		//‚±‚±‚Ìif•¶‚ª•ª‚©‚ê‚Ä‚¢‚½‚Ì‚ÅƒoƒO‚Á‚Ä‚½i¶‰E‚Ç‚¿‚ç‚©‚ª’…‚¢‚Ä‚¢‚È‚¯‚ê‚Î•‚‚¢‚Ä‚é”»’è‚É‚È‚Á‚Ä‚¢‚½‚©‚çj
-		//¶‰E‚Ç‚¿‚ç‚à’…’n‚µ‚Ä‚¢‚È‚¯‚ê‚Î•‚‚¢‚Ä‚é”»’è‚É‚È‚é
+		int x = static_cast<int>(position_.x - GROUND_IMAGE_SIZE / 2);
+		int y = static_cast<int>(((position_.y + 32) - GROUND_IMAGE_SIZE / 2) / GROUND_IMAGE_SIZE);
+		//ã“ã“ã®ifæ–‡ãŒåˆ†ã‹ã‚Œã¦ã„ãŸã®ã§ãƒã‚°ã£ã¦ãŸï¼ˆå·¦å³ã©ã¡ã‚‰ã‹ãŒç€ã„ã¦ã„ãªã‘ã‚Œã°æµ®ã„ã¦ã‚‹åˆ¤å®šã«ãªã£ã¦ã„ãŸã‹ã‚‰ï¼‰
+		//å·¦å³ã©ã¡ã‚‰ã‚‚ç€åœ°ã—ã¦ã„ãªã‘ã‚Œã°æµ®ã„ã¦ã‚‹åˆ¤å®šã«ãªã‚‹
 		if (!GetMapState(x / GROUND_IMAGE_SIZE, y) && !GetMapState((x + (GROUND_IMAGE_SIZE - 1)) / GROUND_IMAGE_SIZE, y))
 		{
 			isJump_ = true;
@@ -111,153 +114,194 @@ void Player::Fall()
 }
 
 /**
-* @brief ƒWƒƒƒ“ƒvˆ—
+* @brief ã‚¸ãƒ£ãƒ³ãƒ—å‡¦ç†
 */
 void Player::Jump()
 {
-	if (!isJump_ && Input::GetInstance().GetKeyDown(KEY_INPUT_SPACE))
+	if (!isJump_ && Input::GetInstance().GetKeyDown(KEY_INPUT_SPACE) && control_ == true)
 	{
-  		isJump_ = true;
+		isJump_ = true;
 		fallSpeed_ = jumpForce_;
 	}
 }
 
 /**
-* @brief player‚Ì¶‰EˆÚ“®
-* @param dir ¶(-1)‰E(1)‚Ç‚¿‚ç‚©“ü—Í‚µ‚½’l‚ğ‚Á‚Ä‚¢‚é
+* @brief playerã®å·¦å³ç§»å‹•
+* @param dir å·¦(-1)å³(1)ã©ã¡ã‚‰ã‹å…¥åŠ›ã—ãŸå€¤ã‚’æŒã£ã¦ã„ã‚‹
 */
-void Player::Move(float dir)
+void Player::Move(const float dir)
 {
-	moveVector_.x += SPEED * dir;
-	position_.x += moveVector_.x;
-	//‰¡‚Ì”»’è
+	if (control_ == true)
 	{
-		int x = position_.x - GROUND_IMAGE_SIZE / 2;
-		int y = position_.y - GROUND_IMAGE_SIZE / 2;
-		//À•W‚ğƒTƒCƒY‚ÅŠ„‚é‚Æƒ^ƒCƒ‹‚Ì”Ô†‚ªo‚é
-		//‰æ‘œ‚Ìã‚Ì‰EŠp
+		moveVector_.x += SPEED * dir * Time::deltaTime;
+		position_.x += moveVector_.x;
+	}
+	//æ¨ªã®åˆ¤å®š
+	{
+		int x = static_cast<int>(position_.x - GROUND_IMAGE_SIZE / 2);
+		int y = static_cast<int>(position_.y - GROUND_IMAGE_SIZE / 2);
+		//åº§æ¨™ã‚’ã‚µã‚¤ã‚ºã§å‰²ã‚‹ã¨ã‚¿ã‚¤ãƒ«ã®ç•ªå·ãŒå‡ºã‚‹
+		//ç”»åƒã®ä¸Šã®å³è§’
 		if (GetMapState((x + (GROUND_IMAGE_SIZE - 1)) / GROUND_IMAGE_SIZE, y / GROUND_IMAGE_SIZE))
 		{
-			//‰æ‘œ‚ÌƒTƒCƒY‚ğŠ|‚¯‚é‚ÆÀ•W‚ªo‚é
-			position_.x = x / GROUND_IMAGE_SIZE * GROUND_IMAGE_SIZE + GROUND_IMAGE_SIZE / 2;
+			//ç”»åƒã®ã‚µã‚¤ã‚ºã‚’æ›ã‘ã‚‹ã¨åº§æ¨™ãŒå‡ºã‚‹
+			position_.x = static_cast<float>(x / GROUND_IMAGE_SIZE * GROUND_IMAGE_SIZE + GROUND_IMAGE_SIZE / 2);
 		}
-		//‰æ‘œ‚Ì‰º‚Ì‰EŠp
+		//ç”»åƒã®ä¸‹ã®å³è§’
 		else if (GetMapState((x + (GROUND_IMAGE_SIZE - 1)) / GROUND_IMAGE_SIZE, (y + (GROUND_IMAGE_SIZE - 1)) / GROUND_IMAGE_SIZE))
 		{
-			position_.x = x / GROUND_IMAGE_SIZE * GROUND_IMAGE_SIZE + GROUND_IMAGE_SIZE / 2;
+			position_.x = static_cast<float>(x / GROUND_IMAGE_SIZE * GROUND_IMAGE_SIZE + GROUND_IMAGE_SIZE / 2);
 		}
-		//‰æ‘œ‚Ìã‚Ì¶Šp
+		//ç”»åƒã®ä¸Šã®å·¦è§’
 		else if (GetMapState(x / GROUND_IMAGE_SIZE, y / GROUND_IMAGE_SIZE))
 		{
-			position_.x = (x / GROUND_IMAGE_SIZE + 1) * GROUND_IMAGE_SIZE + GROUND_IMAGE_SIZE / 2;
+			position_.x = static_cast<float>((x / GROUND_IMAGE_SIZE + 1) * GROUND_IMAGE_SIZE + GROUND_IMAGE_SIZE / 2);
 		}
-		//‰æ‘œ‚Ì‰º‚Ì¶Šp
+		//ç”»åƒã®ä¸‹ã®å·¦è§’
 		else if (GetMapState(x / GROUND_IMAGE_SIZE, (y + (GROUND_IMAGE_SIZE - 1)) / GROUND_IMAGE_SIZE))
 		{
-			position_.x = (x / GROUND_IMAGE_SIZE + 1) * GROUND_IMAGE_SIZE + GROUND_IMAGE_SIZE / 2;
+			position_.x = static_cast<float>((x / GROUND_IMAGE_SIZE + 1) * GROUND_IMAGE_SIZE + GROUND_IMAGE_SIZE / 2);
 		}
 	}
 }
 
 /**
-* @brief “–‚½‚è”»’è‚ÌŠÖ”
+* @brief ãƒãƒƒã‚¯ãƒãƒƒã‚¯ã•ã›ã‚‹é–¢æ•°
 */
-void Player::Collision(Vector2 pos, Vector2 size)
+void Player::KnockBack()
 {
-	if (active_ == false)
+	if (control_ == true)
 	{
 		return;
 	}
-	//©•ª‚Ì¶ã‚ÌŠp‚ª‘ÎÛ‚Ì‹éŒ`‚É“ü‚Á‚½‚©‚ğŒ©‚é
-	if ( (pos.x >= position_.x && position_.x <= pos.x + size.x) &&
-		(pos.y >= position_.y && position_.y <= pos.y + size.y) )
+	knockBackTimer_ = 0.0f;
+	knockBackTimer_ += Time::deltaTime;
+	if (knockBackTimer_ > 0.5f)
 	{
-		//Collision function
-		DrawFormatString(200, 0, GetColor(255, 255, 255), "©g‚Ì¶ã‚ª“–‚½‚Á‚½");
+		control_ = true;
+		knockBackTimer_ = 0.0f;
+		return;
 	}
-	//©•ª‚Ì‰Eã‚ÌŠp‚ª‘ÎÛ‚Ì‹éŒ`‚É“ü‚Á‚½‚©‚ğŒ©‚é
-	else if ( (pos.x <= position_.x + size_.x && position_.x + size_.x <= pos.x + size.x) &&
-		(pos.y <= position_.y && position_.y <= pos.y + size.y) )
-	{
-		//Collision function
-		DrawFormatString(200, 0, GetColor(255, 255, 255), "©g‚Ì‰Eã‚ª“–‚½‚Á‚½");
-	}
-	//©•ª‚Ì¶‰º‚ÌŠp‚ª‘ÎÛ‚Ì‹éŒ`‚É“ü‚Á‚½‚©‚ğŒ©‚é
-	else if ((pos.x <= position_.x && position_.x <= pos.x + size.x) &&
-		(pos.y <= position_.y + size_.y && position_.y + size_.y <= pos.y + size.y))
-	{
-		//Collision function
-		DrawFormatString(200, 0, GetColor(255, 255, 255), "©g‚Ì¶‰º‚ª“–‚½‚Á‚½");
-	}
-	//©•ª‚Ì¶‰º‚ÌŠp‚ª‘ÎÛ‚Ì‹éŒ`‚É“ü‚Á‚½‚©‚ğŒ©‚é
-	else if ((pos.x <= position_.x + size_.x && position_.x + size_.x <= pos.x + size.x) &&
-		(pos.y <= position_.y + size_.y && position_.y + size_.y <= pos.y + size.y))
-	{
-		//Collision function
-		DrawFormatString(200, 0, GetColor(255, 255, 255), "©g‚Ì‰E‰º‚ª“–‚½‚Á‚½");
-	}
+	//å‘ã„ã¦ã‚‹æ–¹å‘ã®é€†æ–¹å‘
+	int dir{};
+	//æ•µã®åº§æ¨™ãŒ16ã‚ºãƒ¬ã¦ã„ã‚‹ã®ã§èª¿æ•´
+	auto d = position_.x - (targetPosition_.x + 16.f);
+	dir = d >= 0 ? static_cast<int>(DIR::Right) : static_cast<int>(DIR::Left);
+	//knockback
+	moveVector_.x += dir * KNOCKBACKSPEED * Time::deltaTime;
+	position_.x += moveVector_.x;
 }
 
 /**
-* @brief •`‰æˆ—
+* @brief å½“ãŸã‚Šåˆ¤å®šã®é–¢æ•°
+*/
+bool Player::Collision(const Vector2 pos, const Vector2 size)
+{
+	if (active_ == false || isTargetActive_ == false)
+	{
+		return false;
+	}
+	//è‡ªåˆ†ã®å·¦ä¸Šã®è§’ãŒå¯¾è±¡ã®çŸ©å½¢ã«å…¥ã£ãŸã‹ã‚’è¦‹ã‚‹
+	if ((pos.x <= position_.x - 16.f && position_.x - 16.f <= pos.x + size.x + 16.0f) &&
+		(pos.y <= position_.y - 16.f && position_.y - 16.f <= pos.y + size.y + 16.0f))
+	{
+		//Collision function
+		DrawFormatString(200, 100, GetColor(255, 255, 255), "è‡ªèº«ã®å·¦ä¸ŠãŒå½“ãŸã£ãŸ");
+		return true;
+	}
+	//è‡ªåˆ†ã®å³ä¸Šã®è§’ãŒå¯¾è±¡ã®çŸ©å½¢ã«å…¥ã£ãŸã‹ã‚’è¦‹ã‚‹
+	else if ((pos.x <= position_.x + size_.x && position_.x + size_.x <= pos.x + size.x + 16.0f) &&
+		(pos.y <= position_.y - 16.f && position_.y - 16.f <= pos.y + size.y + 16.0f))
+	{
+		//Collision function
+		DrawFormatString(200, 100, GetColor(255, 255, 255), "è‡ªèº«ã®å³ä¸ŠãŒå½“ãŸã£ãŸ");
+		return true;
+	}
+	//è‡ªåˆ†ã®å·¦ä¸‹ã®è§’ãŒå¯¾è±¡ã®çŸ©å½¢ã«å…¥ã£ãŸã‹ã‚’è¦‹ã‚‹
+	else if ((pos.x <= position_.x - 16.f && position_.x - 16.f <= pos.x + size.x + 16.0f) &&
+		(pos.y <= position_.y + size_.y && position_.y + size_.y <= pos.y + size.y + 16.0f))
+	{
+		//Collision function
+		DrawFormatString(200, 100, GetColor(255, 255, 255), "è‡ªèº«ã®å·¦ä¸‹ãŒå½“ãŸã£ãŸ");
+		return true;
+	}
+	//è‡ªåˆ†ã®å³ä¸‹ã®è§’ãŒå¯¾è±¡ã®çŸ©å½¢ã«å…¥ã£ãŸã‹ã‚’è¦‹ã‚‹
+	else if ((pos.x <= position_.x + size_.x && position_.x + size_.x <= pos.x + size.x + 16.0f) &&
+		(pos.y <= position_.y + size_.y && position_.y + size_.y <= pos.y + size.y + 16.0f))
+	{
+		//Collision function
+		DrawFormatString(200, 100, GetColor(255, 255, 255), "è‡ªèº«ã®å³ä¸‹ãŒå½“ãŸã£ãŸ");
+		return true;
+	}
+	return false;
+}
+
+/**
+* @brief æç”»å‡¦ç†
 */
 void Player::Render()
 {
-	DxLib::DrawRotaGraph(static_cast<int>(position_.x - Camera::position_.x), static_cast<int>(position_.y - Camera::position_.y)   //À•W
-		, 1                                                                             //Šg‘å—¦
-		, 0																			    //‰ñ“]
-		, handle_                                                                       //‰æ‘œƒf[ƒ^
-		, true                                                                          //“§–¾“x‚ğ—LŒø‚É‚·‚é‚©
-		, (playerDir_ == DIR::Left) ? TRUE : FALSE);                                    //¶‰E”»’è‚ğ—LŒø‚É‚·‚é‚©
+	DxLib::DrawRotaGraph(static_cast<int>(position_.x - Camera::position_.x), static_cast<int>(position_.y - Camera::position_.y)   //åº§æ¨™
+		, 1                                                                                                                         //æ‹¡å¤§ç‡
+		, 0																															//å›è»¢
+		, handle_																												    //ç”»åƒãƒ‡ãƒ¼ã‚¿
+		, true																														//é€æ˜åº¦ã‚’æœ‰åŠ¹ã«ã™ã‚‹ã‹
+		, (playerDir_ == static_cast<int>(DIR::Left)) ? TRUE : FALSE);																//å·¦å³åˆ¤å®šã‚’æœ‰åŠ¹ã«ã™ã‚‹ã‹
 	bulletmanager_->Render();
 
 #ifdef DEBUG
-	DxLib::DrawCircle(position_.x - Camera::position_.x, position_.y - Camera::position_.y, 2, GetColor(255, 100, 255), 1);
-	DxLib::DrawBox(position_.x - 32 / 2 - Camera::position_.x, position_.y - 32 / 2 - Camera::position_.y, position_.x + 32 / 2 - Camera::position_.x,
-		position_.y + 32 / 2 - Camera::position_.y, GetColor(255, 255, 255), 0);
+	DxLib::DrawCircle(static_cast<int>(position_.x - Camera::position_.x), static_cast<int>(position_.y - Camera::position_.y), 2, GetColor(255, 100, 255), 1);
+	DxLib::DrawBox(static_cast<int>(position_.x - 32 / 2 - Camera::position_.x), static_cast<int>(position_.y - 32 / 2 - Camera::position_.y), static_cast<int>(position_.x + 32 / 2 - Camera::position_.x),
+		static_cast<int>(position_.y + 32 / 2 - Camera::position_.y), GetColor(255, 255, 255), 0);
 	DxLib::DrawFormatString(400, 0, GetColor(255, 255, 255), "CameraPos:x = %5f, y = %5f", Camera::position_.x, Camera::position_.y);
 	DxLib::DrawFormatString(0, 0, GetColor(255, 255, 255), "PlayerPos:x = %5f, y = %5f", position_.x, position_.y);
+	DxLib::DrawFormatString(0, 200, GetColor(255, 255, 255), "TargetPos:x = %5f, y = %5f", targetPosition_.x, targetPosition_.y);
 #endif
 }
 
 /**
-* @brief XVˆ—
+* @brief æ›´æ–°å‡¦ç†
 */
 void Player::Update()
 {
+	//ç§»å‹•é‡ã‚’ãƒªã‚»ãƒƒãƒˆ
 	moveVector_ = Vector2(0.0f, 0.0f);
-
-	Jump();
 	Fall();
+	if (Collision(targetPosition_, targetSize_))
+	{
+		control_ = false;
+	}
+	KnockBack();
+	//ã‚«ãƒ¡ãƒ©ã®ä½ç½®ã‚’ãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼ãŒç”»é¢ã®çœŸã‚“ä¸­ã«æ¥ã‚‹ã‚ˆã†ã«è¨­å®š
+	Camera::position_.x = position_.x - (1280 / 2);
+	Camera::position_.y = position_.y - (720 / 2);
+	Jump();
 	if (Input::GetInstance().GetKey(KEY_INPUT_LEFT))
 	{
-		playerDir_ = Left;
+		playerDir_ = static_cast<int>(DIR::Left);
 		Move(playerDir_);
 	}
 	else if (Input::GetInstance().GetKey(KEY_INPUT_RIGHT))
 	{
-		playerDir_ = Right;
+		playerDir_ = static_cast<int>(DIR::Right);
 		Move(playerDir_);
 	}
-	//ƒJƒƒ‰‚ÌˆÊ’u‚ğƒvƒŒƒCƒ„[‚ª‰æ–Ê‚Ì^‚ñ’†‚É—ˆ‚é‚æ‚¤‚Éİ’è
-	Camera::position_.x = position_.x - (1280 / 2);
-	Camera::position_.y = position_.y - (720 / 2);  
-
-	if (Input::GetInstance().GetKeyDown(KEY_INPUT_B))
+	if (Input::GetInstance().GetKeyDown(KEY_INPUT_B) && control_ == true)
 	{
 		bulletmanager_->Shot(position_, playerDir_);
 	}
 	bulletmanager_->Update();
-	//“G‚ª‘¶İ‚µ‚Ä‚¢‚È‚¢‚Æ‚«‚É“–‚½‚è”»’è‚ğ‚·‚é
+	//æ•µãŒå­˜åœ¨ã—ã¦ã„ãªã„å ´åˆreturnã™ã‚‹
 	if (isTargetActive_ == false)
 	{
 		return;
 	}
-	//“G‚ÌÀ•W‚ÆƒTƒCƒY‚ª“ü‚é
+	//æ•µã®åº§æ¨™ã¨ã‚µã‚¤ã‚ºãŒå…¥ã‚‹
 	bulletmanager_->SetTargetPosition(targetPosition_);
 	bulletmanager_->SetTargetSize(targetSize_);
+	//æ•µã®åº§æ¨™ã¨å½“ãŸã‚Šåˆ¤å®šã®ã‚µã‚¤ã‚ºã‚’æ ¼ç´
 	auto pos = bulletmanager_->GetTargetPosition();
 	auto size = bulletmanager_->GetTargetSize();
-	//’e‚Æ“G‚Ì“–‚½‚è”»’è
+	//å¼¾ã¨æ•µã®å½“ãŸã‚Šåˆ¤å®š
 	isBulletCollision_ = bulletmanager_->Collision(pos, size);
 }

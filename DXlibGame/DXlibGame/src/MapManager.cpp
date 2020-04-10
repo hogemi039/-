@@ -1,12 +1,12 @@
-/**
+ï»¿/**
 * @file   MapManager.cpp
-* @brief  ƒƒ“ƒoŠÖ”‚Ì’è‹`
-* @auther ˆÉ“¡ L÷
+* @brief  ãƒ¡ãƒ³ãƒé–¢æ•°ã®å®šç¾©
+* @auther ä¼Šè—¤ åºƒæ¨¹
 * @date   2019/12/5
 */
 #include "MapManager.hpp"
-//xmlƒtƒ@ƒCƒ‹‚ğ“Ç‚İ‚Ü‚¹‚é‚½‚ß‚Ìƒwƒbƒ_
-//ƒTƒCƒg‚©‚çƒ_ƒEƒ“ƒ[ƒh‚µ‚Ä‚«‚½‚à‚Ì
+//xmlãƒ•ã‚¡ã‚¤ãƒ«ã‚’èª­ã¿è¾¼ã¾ã›ã‚‹ãŸã‚ã®ãƒ˜ãƒƒãƒ€
+//ã‚µã‚¤ãƒˆã‹ã‚‰ãƒ€ã‚¦ãƒ³ãƒ­ãƒ¼ãƒ‰ã—ã¦ããŸã‚‚ã®
 #include "tinyxml2.h"
 
 MapManager::MapManager()
@@ -16,57 +16,57 @@ MapManager::MapManager()
 
 void MapManager::ReadMap()
 {
-	//XMLƒtƒ@ƒCƒ‹‚Ì“Ç‚İ‚İ
+	//XMLãƒ•ã‚¡ã‚¤ãƒ«ã®èª­ã¿è¾¼ã¿
 	tinyxml2::XMLDocument xml;
 	xml.LoadFile("resource/mapdata/testMap.tmx");
-	//ƒ^ƒO‚ğ“ü‚ê‚é
-	tinyxml2::XMLElement *map = xml.FirstChildElement("map");
-	//tilesetAlayerƒ^ƒO‚Ímapƒ^ƒO‚Ì’†‚É‘‚©‚ê‚Ä‚¢‚é‚Ì‚Åmap‚©‚ç‚Æ‚é‚±‚Æ‚ª‚Å‚«‚é
-	tinyxml2::XMLElement *tileset = map->FirstChildElement("tileset");
-	tinyxml2::XMLElement *layer = map->FirstChildElement("layer");
-	//dataƒ^ƒO‚Ílayerƒ^ƒO‚Ì’†‚É‘‚©‚ê‚Ä‚¢‚é‚Ì‚Ålayer‚©‚ç‚Æ‚é‚±‚Æ‚ª‚Å‚«‚é
-	tinyxml2::XMLElement *data = layer->FirstChildElement("data");
-	//‰½”Ô–Ú‚Ìƒ`ƒbƒv”Ô†‚©‚çn‚Ü‚é‚©“ü‚é
+	//ã‚¿ã‚°ã‚’å…¥ã‚Œã‚‹
+	tinyxml2::XMLElement* map = xml.FirstChildElement("map");
+	//tilesetã€layerã‚¿ã‚°ã¯mapã‚¿ã‚°ã®ä¸­ã«æ›¸ã‹ã‚Œã¦ã„ã‚‹ã®ã§mapã‹ã‚‰ã¨ã‚‹ã“ã¨ãŒã§ãã‚‹
+	tinyxml2::XMLElement* tileset = map->FirstChildElement("tileset");
+	tinyxml2::XMLElement* layer = map->FirstChildElement("layer");
+	//dataã‚¿ã‚°ã¯layerã‚¿ã‚°ã®ä¸­ã«æ›¸ã‹ã‚Œã¦ã„ã‚‹ã®ã§layerã‹ã‚‰ã¨ã‚‹ã“ã¨ãŒã§ãã‚‹
+	tinyxml2::XMLElement* data = layer->FirstChildElement("data");
+	//ä½•ç•ªç›®ã®ãƒãƒƒãƒ—ç•ªå·ã‹ã‚‰å§‹ã¾ã‚‹ã‹å…¥ã‚‹
 	int firstGid{ 0 };
 
-	/*          ’l‚Ìæ“¾           */
-	//tilesetƒ^ƒO‚Ìfirstgid‚Ì”’l‚ğ“Ç‚Ş
+	//å€¤ã®å–å¾—
+	//tilesetã‚¿ã‚°ã®firstgidã®æ•°å€¤ã‚’èª­ã‚€
 	if (tileset->Attribute("firstgid"))
 	{
-		//ƒ`ƒbƒv‚ÌŠJn”Ô†
+		//ãƒãƒƒãƒ—ã®é–‹å§‹ç•ªå·
 		firstGid = atoi(tileset->Attribute("firstgid"));
 	}
-	//layerƒ^ƒO‚Ìwidth‚Ì”‚ğ“Ç‚Ş
+	//layerã‚¿ã‚°ã®widthã®æ•°ã‚’èª­ã‚€
 	if (layer->Attribute("width"))
 	{
 		mapWidth = atoi(layer->Attribute("width"));
 	}
-	//layerƒ^ƒO‚Ìheight‚Ì”‚ğ“Ç‚Ş
+	//layerã‚¿ã‚°ã®heightã®æ•°ã‚’èª­ã‚€
 	if (layer->Attribute("height"))
 	{
 		mapHeight = atoi(layer->Attribute("height"));
 	}
 
-	/*   ƒ}ƒbƒv”Ô†æ“¾   */
+	//ãƒãƒƒãƒ—ç•ªå·å–å¾—
 	const char* dataStr = data->GetText();
 	const char* start = dataStr;
 	for (int i = 0; i < mapWidth * mapHeight; i++)
 	{
-		//ƒJƒ“ƒ}‚ğ’T‚·
+		//ã‚«ãƒ³ãƒã‚’æ¢ã™
 		const char* end = strchr(start, ',');
-		/*    •¶š‚ğ”z—ñ‚É“ü‚ê‚é    */
- 		//TileMapEditor‚Ì“s‡ãA‰½‚à’u‚©‚ê‚Ä‚¢‚È‚¢‚Æ‚±‚ë‚Í‚O‚É‚È‚é
-		//‹ó—“‚Í-1‚É‚µ‚Ä‚ ‚°‚½‚¢B
-		//‰æ‘œ‚Ìƒ`ƒbƒv”Ô†‚Í‚P‚©‚çn‚Ü‚é‚ª
-		//ƒvƒƒOƒ‰ƒ€ã‚Å‚Í‚O‚©‚çˆµ‚¢‚½‚¢‚Ì‚ÅA
-		//ƒGƒfƒBƒ^[ã‚Ì”’l‚ÉfirstGid‚ğˆø‚¯‚Î‚O‚©‚çˆµ‚¦‚é
+		//æ–‡å­—ã‚’é…åˆ—ã«å…¥ã‚Œã‚‹
+		//TileMapEditorã®éƒ½åˆä¸Šã€ä½•ã‚‚ç½®ã‹ã‚Œã¦ã„ãªã„ã¨ã“ã‚ã¯ï¼ã«ãªã‚‹
+		//ç©ºæ¬„ã¯-1ã«ã—ã¦ã‚ã’ãŸã„ã€‚
+		//ç”»åƒã®ãƒãƒƒãƒ—ç•ªå·ã¯ï¼‘ã‹ã‚‰å§‹ã¾ã‚‹ãŒ
+		//ãƒ—ãƒ­ã‚°ãƒ©ãƒ ä¸Šã§ã¯ï¼ã‹ã‚‰æ‰±ã„ãŸã„ã®ã§ã€
+		//ã‚¨ãƒ‡ã‚£ã‚¿ãƒ¼ä¸Šã®æ•°å€¤ã«firstGidã‚’å¼•ã‘ã°ï¼ã‹ã‚‰æ‰±ãˆã‚‹
 		mapList.push_back(atoi(start) - firstGid);
-		//ƒJƒ“ƒ}‚ª‚È‚©‚Á‚½iÅŒãj‚È‚ç”²‚¯‚é
+		//ã‚«ãƒ³ãƒãŒãªã‹ã£ãŸï¼ˆæœ€å¾Œï¼‰ãªã‚‰æŠœã‘ã‚‹
 		if (end == nullptr)
 		{
 			break;
 		}
-		//ƒJƒ“ƒ}•ª‚·‚·‚ß‚é
+		//ã‚«ãƒ³ãƒåˆ†ã™ã™ã‚ã‚‹
 		start = end + 1;
 	}
 }
@@ -83,7 +83,7 @@ int MapManager::GetMapHeight()
 
 int MapManager::GetChipNum(int x, int y)
 {
-	//ƒ}ƒbƒv‰º‚©‰E‚É‚Í‚İo‚Ä‚¢‚½‚ç
+	//ãƒãƒƒãƒ—ä¸‹ã‹å³ã«ã¯ã¿å‡ºã¦ã„ãŸã‚‰
 	if (y >= mapHeight)
 	{
 		return -1;
@@ -92,10 +92,9 @@ int MapManager::GetChipNum(int x, int y)
 	{
 		return -1;
 	}
-	//ŠY“–‚·‚éƒ}ƒbƒv‚Ìî•ñ‚ğ•Ô‚·
-	//1ŸŒ³”z—ñ‚Å‚à
-	//Y * ƒ}ƒbƒv‚Ì‰¡• + X
-	//‚ÅA“ñŸŒ³”z—ñ‚Ì‚æ‚¤‚É‚µ‚Ä’l‚ğæ‚ê‚é
+	//è©²å½“ã™ã‚‹ãƒãƒƒãƒ—ã®æƒ…å ±ã‚’è¿”ã™
+	//1æ¬¡å…ƒé…åˆ—ã§ã‚‚
+	//Y * ãƒãƒƒãƒ—ã®æ¨ªå¹… + X
+	//ã§ã€äºŒæ¬¡å…ƒé…åˆ—ã®ã‚ˆã†ã«ã—ã¦å€¤ã‚’å–ã‚Œã‚‹
 	return mapList.at(y * mapWidth + x);
 }
-
